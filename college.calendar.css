@@ -32,7 +32,10 @@ body {
   color: #222;
   font-family: "Open Sans",sans-serif;
   margin: 0;
-  padding: 32px; }
+  padding: 16px; }
+  @media (min-width: 400px) {
+    body {
+      padding: 32px; } }
 
 a[href] {
   color: var(--calevent-color-link);
@@ -171,10 +174,19 @@ a[href] {
   #calevents-minimonth .day {
     flex: 0 1 calc(100% / 7);
     text-align: center; }
+    #calevents-minimonth .day .day-number {
+      border: 2px transparent solid;
+      box-sizing: border-box; }
     #calevents-minimonth .day.other {
       opacity: 0.25; }
       #calevents-minimonth .day.other .day-number {
         color: var(--calevent-grey); }
+    #calevents-minimonth .day.today .day-number {
+      box-sizing: border-box;
+      border: 2px rgba(190, 112, 33, 0.2) solid;
+      border-radius: 16px;
+      margin: 0 auto;
+      max-width: 64px; }
 
 @-webkit-keyframes fadeIn {
   from {

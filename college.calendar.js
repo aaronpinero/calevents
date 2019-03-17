@@ -1,4 +1,6 @@
 var today = moment();
+var mindate = false;
+var maxdate = false;
 
 function Calendar(selector,events) {
   this.selector = selector;
@@ -183,6 +185,13 @@ Calendar.prototype.prevMonth = function() {
       eventdata[x] = {};
       eventdata[x].date = date;
       eventdata[x].html = html;
+      
+      if (x === 0) { // first event date; dates are chronological, so this should be the earliest date
+        mindate = date;
+      }
+      if (x == (events.length - 1)) { // last event date; dates are chronological, so this should be the latest date
+        maxdate = date;
+      }
     }
     
     // create minimonth

@@ -34,7 +34,10 @@ body {
   color:#222;
   font-family:"Open Sans",sans-serif;
   margin:0;
-  padding:32px;
+  padding:16px;
+  @media (min-width:400px) {
+    padding:32px;
+  }
 }
 a[href] {
   color:var(--calevent-color-link);
@@ -210,11 +213,22 @@ a[href] {
     }
     .day-number {
       @extend %caldaynum;
+      border:2px transparent solid;
+      box-sizing:border-box;
     }
     &.other {
       opacity:0.25;
       .day-number {
         color:var(--calevent-grey);
+      }
+    }
+    &.today {
+      .day-number {
+        box-sizing: border-box;
+        border:2px rgba(invert($blue),0.2) solid;
+        border-radius:16px;
+        margin:0 auto;
+        max-width:64px;
       }
     }
   }

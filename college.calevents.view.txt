@@ -35,7 +35,7 @@ $handler->display->display_options['fields']['field_calevent_date_4']['element_l
 $handler->display->display_options['fields']['field_calevent_date_4']['element_wrapper_type'] = '0';
 $handler->display->display_options['fields']['field_calevent_date_4']['settings'] = array(
   'format_type' => 'custom',
-  'custom_date_format' => 'F',
+  'custom_date_format' => 'F Y',
   'fromto' => 'value',
   'multiple_number' => '',
   'multiple_from' => '',
