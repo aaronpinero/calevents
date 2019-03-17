@@ -13,8 +13,8 @@ $blue-dark:#002855;
   font-size:22px;
   font-weight:bold;
   line-height:28px;
-  padding: 8px;
-  text-align: center;
+  padding:8px;
+  text-align:center;
 }
 %caldayname {
   color:var(--calevent-grey);
@@ -164,6 +164,39 @@ a[href] {
       }
     }
   }
+  .month {
+    opacity:0;
+    &.new {
+      -webkit-animation:fadeIn 1s ease-out;
+      -moz-animation:fadeIn 1s ease-out;
+      animation:fadeIn 1s ease-out;
+      opacity:1;
+    }
+    &.in.next {
+      -webkit-animation:moveFromTopFadeMonth .4s ease-out;
+      -moz-animation:moveFromTopFadeMonth .4s ease-out;
+      animation:moveFromTopFadeMonth .4s ease-out;
+      opacity:1;
+    }
+    &.out.next {
+      -webkit-animation:moveToTopFadeMonth .4s ease-in;
+      -moz-animation:moveToTopFadeMonth .4s ease-in;
+      animation:moveToTopFadeMonth .4s ease-in;
+      opacity:1;
+    }
+    &.in.prev {
+      -webkit-animation:moveFromBottomFadeMonth .4s ease-out;
+      -moz-animation:moveFromBottomFadeMonth .4s ease-out;
+      animation:moveFromBottomFadeMonth .4s ease-out;
+      opacity:1;
+    }
+    &.out.prev {
+      -webkit-animation:moveToBottomFadeMonth .4s ease-in;
+      -moz-animation:moveToBottomFadeMonth .4s ease-in;
+      animation:moveToBottomFadeMonth .4s ease-in;
+      opacity:1;
+    }
+  }
   .week {
     display:flex;
     flex-wrap:wrap;
@@ -186,3 +219,63 @@ a[href] {
     }
   }
 }
+
+@-webkit-keyframes fadeIn  {
+  from { opacity:0; }
+}
+@-moz-keyframes fadeIn  {
+  from { opacity:0; }
+}
+@keyframes fadeIn  {
+  from { opacity:0; }
+}
+
+@-webkit-keyframes moveToBottomFadeMonth {
+  to { opacity:0; -webkit-transform:translateY(30%) scale(.95); }
+}
+@-moz-keyframes moveToBottomFadeMonth {
+  to { opacity:0; -moz-transform:translateY(30%) scale(.95); }
+}
+@keyframes moveToBottomFadeMonth {
+  to { opacity:0; transform:translateY(30%) scale(.95); }
+}
+
+@-webkit-keyframes moveFromBottomFadeMonth {
+  from { opacity:0; -webkit-transform:translateY(-30%) scale(.95); }
+}
+@-moz-keyframes moveFromBottomFadeMonth {
+  from { opacity:0; -moz-transform:translateY(-30%) scale(.95); }
+}
+@keyframes moveFromBottomFadeMonth {
+  from { opacity:0; transform:translateY(-30%) scale(.95); }
+}
+
+@-webkit-keyframes moveToTopFadeMonth {
+  to { opacity:0; -webkit-transform:translateY(-30%) scale(.95); }
+}
+@-moz-keyframes moveToTopFadeMonth {
+  to { opacity:0; -moz-transform:translateY(-30%) scale(.95); }
+}
+@keyframes moveToTopFadeMonth {
+  to { opacity:0; transform:translateY(-30%) scale(.95); }
+}
+
+@-webkit-keyframes moveFromTopFadeMonth {
+  from { opacity:0; -webkit-transform:translateY(30%) scale(.95); }
+}
+@-moz-keyframes moveFromTopFadeMonth {
+  from { opacity:0; -moz-transform:translateY(30%) scale(.95); }
+}
+@keyframes moveFromTopFadeMonth {
+  from { opacity:0; transform:translateY(30%) scale(.95); }
+}
+
+
+
+
+
+
+
+
+
+

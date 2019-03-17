@@ -137,6 +137,33 @@ a[href] {
       right: 8px; }
       #calevents-minimonth .header .right:hover {
         background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon id="angle-right" stroke="none" stroke-width="1" fill="#002855" points="54 32 22 64 15 57 40 32 15 7 22 0"></polygon></svg>'); }
+  #calevents-minimonth .month {
+    opacity: 0; }
+    #calevents-minimonth .month.new {
+      -webkit-animation: fadeIn 1s ease-out;
+      -moz-animation: fadeIn 1s ease-out;
+      animation: fadeIn 1s ease-out;
+      opacity: 1; }
+    #calevents-minimonth .month.in.next {
+      -webkit-animation: moveFromTopFadeMonth 0.4s ease-out;
+      -moz-animation: moveFromTopFadeMonth 0.4s ease-out;
+      animation: moveFromTopFadeMonth 0.4s ease-out;
+      opacity: 1; }
+    #calevents-minimonth .month.out.next {
+      -webkit-animation: moveToTopFadeMonth 0.4s ease-in;
+      -moz-animation: moveToTopFadeMonth 0.4s ease-in;
+      animation: moveToTopFadeMonth 0.4s ease-in;
+      opacity: 1; }
+    #calevents-minimonth .month.in.prev {
+      -webkit-animation: moveFromBottomFadeMonth 0.4s ease-out;
+      -moz-animation: moveFromBottomFadeMonth 0.4s ease-out;
+      animation: moveFromBottomFadeMonth 0.4s ease-out;
+      opacity: 1; }
+    #calevents-minimonth .month.out.prev {
+      -webkit-animation: moveToBottomFadeMonth 0.4s ease-in;
+      -moz-animation: moveToBottomFadeMonth 0.4s ease-in;
+      animation: moveToBottomFadeMonth 0.4s ease-in;
+      opacity: 1; }
   #calevents-minimonth .week {
     display: flex;
     flex-wrap: wrap;
@@ -148,3 +175,75 @@ a[href] {
       opacity: 0.25; }
       #calevents-minimonth .day.other .day-number {
         color: var(--calevent-grey); }
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; } }
+
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0; } }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0; } }
+
+@-webkit-keyframes moveToBottomFadeMonth {
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(30%) scale(0.95); } }
+
+@-moz-keyframes moveToBottomFadeMonth {
+  to {
+    opacity: 0;
+    -moz-transform: translateY(30%) scale(0.95); } }
+
+@keyframes moveToBottomFadeMonth {
+  to {
+    opacity: 0;
+    transform: translateY(30%) scale(0.95); } }
+
+@-webkit-keyframes moveFromBottomFadeMonth {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-30%) scale(0.95); } }
+
+@-moz-keyframes moveFromBottomFadeMonth {
+  from {
+    opacity: 0;
+    -moz-transform: translateY(-30%) scale(0.95); } }
+
+@keyframes moveFromBottomFadeMonth {
+  from {
+    opacity: 0;
+    transform: translateY(-30%) scale(0.95); } }
+
+@-webkit-keyframes moveToTopFadeMonth {
+  to {
+    opacity: 0;
+    -webkit-transform: translateY(-30%) scale(0.95); } }
+
+@-moz-keyframes moveToTopFadeMonth {
+  to {
+    opacity: 0;
+    -moz-transform: translateY(-30%) scale(0.95); } }
+
+@keyframes moveToTopFadeMonth {
+  to {
+    opacity: 0;
+    transform: translateY(-30%) scale(0.95); } }
+
+@-webkit-keyframes moveFromTopFadeMonth {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(30%) scale(0.95); } }
+
+@-moz-keyframes moveFromTopFadeMonth {
+  from {
+    opacity: 0;
+    -moz-transform: translateY(30%) scale(0.95); } }
+
+@keyframes moveFromTopFadeMonth {
+  from {
+    opacity: 0;
+    transform: translateY(30%) scale(0.95); } }

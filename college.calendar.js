@@ -20,10 +20,10 @@ Calendar.prototype.drawHeader = function() {
     self.title = document.createElement("h2");
     var right = document.createElement("div");
     right.className = "right";
-    // right.addEventListener('click', function() { self.nextMonth(); });
+    right.addEventListener('click', function() { self.nextMonth(); });
     var left = document.createElement("div");
     left.className = "left";
-    // left.addEventListener('click', function() { self.prevMonth(); });
+    left.addEventListener('click', function() { self.prevMonth(); });
     //Append the Elements
     self.header.appendChild(self.title); 
     self.header.appendChild(right);
@@ -41,9 +41,9 @@ Calendar.prototype.drawMonth = function() {
       self.oldMonth.parentNode.removeChild(self.oldMonth);
       self.month = document.createElement("div");
       self.month.className = "month";
-      // self.backFill();
-      // self.currentMonth();
-      // self.fowardFill();
+      self.backFill();
+      self.currentMonth();
+      self.fowardFill();
       self.el.appendChild(self.month);
       window.setTimeout(function() {
         self.month.className = "month in " + (self.next ? "next" : "prev");
@@ -64,24 +64,24 @@ Calendar.prototype.backFill = function() {
   var clone = this.current.clone();
   var dayOfWeek = clone.day();
   if(!dayOfWeek) { return; }
-  clone.subtract("days", dayOfWeek+1);
+  clone.subtract(dayOfWeek+1,"days");
   for(var i = dayOfWeek; i > 0 ; i--) {
-    this.drawDay(clone.add("days", 1));
+    this.drawDay(clone.add(1,"days"));
   }
 };
 Calendar.prototype.fowardFill = function() {
-  var clone = this.current.clone().add("months",1).subtract("days",1);
+  var clone = this.current.clone().add(1,"months").subtract(1,"days");
   var dayOfWeek = clone.day();
   if(dayOfWeek === 6) { return; }
   for(var i = dayOfWeek; i < 6 ; i++) {
-    this.drawDay(clone.add("days", 1));
+    this.drawDay(clone.add(1,"days"));
   }
 };
 Calendar.prototype.currentMonth = function() {
   var clone = this.current.clone();
   while(clone.month() === this.current.month()) {
     this.drawDay(clone);
-    clone.add("days", 1);
+    clone.add(1,"days");
   }
 };
 Calendar.prototype.getWeek = function(day) {
@@ -143,6 +143,18 @@ Calendar.prototype.getDayClass = function(day) {
   }
   return classes.join(' ');
 };
+Calendar.prototype.nextMonth = function() {
+  this.current.add(1,"months");
+  this.next = true;
+  this.draw();
+};
+Calendar.prototype.prevMonth = function() {
+  this.current.subtract(1,"months");
+  this.next = false;
+  this.draw();
+};
+
+
 
 (function($) {
   $(function() {
