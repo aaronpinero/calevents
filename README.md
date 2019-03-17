@@ -8,10 +8,10 @@ The HTML comes from a Drupal 7 view of event nodes by way of <a href="https://ww
 
 ## Rationale
 
-The original calendar widget will be enhanced in the following ways by this project:
+The original calendar widget from Codepen will be enhanced in the following ways by this project:
 
 - responsive design with a full desktop view
 - fallback for no JavaScript
 - fallback for no CSS
-- event data is scraped from HTML (and not taken supplied as JSON) to create the array of event data; this allows the no-JavaScript fallback
+- event data is scraped from HTML (and not supplied as JSON) to create the array of event data; this allows the no-JavaScript fallback
 - date-range limited based on available event data
