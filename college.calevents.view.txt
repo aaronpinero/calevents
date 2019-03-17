@@ -1,0 +1,203 @@
+$view = new view();
+$view->name = 'calevents';
+$view->description = '';
+$view->tag = 'Calendar';
+$view->base_table = 'node';
+$view->human_name = 'Calendar Events';
+$view->core = 7;
+$view->api_version = '3.0';
+$view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+/* Display: Master */
+$handler = $view->new_display('default', 'Master', 'default');
+$handler->display->display_options['use_more_always'] = FALSE;
+$handler->display->display_options['use_more_text'] = 'All Events';
+$handler->display->display_options['link_display'] = 'page_1';
+$handler->display->display_options['access']['type'] = 'perm';
+$handler->display->display_options['cache']['type'] = 'none';
+$handler->display->display_options['query']['type'] = 'views_query';
+$handler->display->display_options['query']['options']['query_comment'] = FALSE;
+$handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['pager']['type'] = 'date_views_pager';
+$handler->display->display_options['pager']['options']['date_id'] = 'month';
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['row_plugin'] = 'calendar_entity';
+/* Field: Content: Event Date: full month name for grouping */
+$handler->display->display_options['fields']['field_calevent_date_4']['id'] = 'field_calevent_date_4';
+$handler->display->display_options['fields']['field_calevent_date_4']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_4']['field'] = 'field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_4']['ui_name'] = 'Content: Event Date: full month name for grouping';
+$handler->display->display_options['fields']['field_calevent_date_4']['label'] = '';
+$handler->display->display_options['fields']['field_calevent_date_4']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date_4']['element_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_4']['element_label_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_4']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date_4']['element_wrapper_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_4']['settings'] = array(
+  'format_type' => 'custom',
+  'custom_date_format' => 'F',
+  'fromto' => 'value',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+/* Field: Content: Event Date: start date month for grouping */
+$handler->display->display_options['fields']['field_calevent_date_3']['id'] = 'field_calevent_date_3';
+$handler->display->display_options['fields']['field_calevent_date_3']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_3']['field'] = 'field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_3']['ui_name'] = 'Content: Event Date: start date month for grouping';
+$handler->display->display_options['fields']['field_calevent_date_3']['label'] = '';
+$handler->display->display_options['fields']['field_calevent_date_3']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date_3']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date_3']['settings'] = array(
+  'format_type' => 'custom',
+  'custom_date_format' => 'M',
+  'fromto' => 'value',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+/* Field: Content: Event Date: for grouping */
+$handler->display->display_options['fields']['field_calevent_date']['id'] = 'field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date']['field'] = 'field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date']['ui_name'] = 'Content: Event Date: for grouping';
+$handler->display->display_options['fields']['field_calevent_date']['label'] = '';
+$handler->display->display_options['fields']['field_calevent_date']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date']['alter']['text'] = '<span class="month">[field_calevent_date_3]</span> <span class="day">[field_calevent_date]</span>';
+$handler->display->display_options['fields']['field_calevent_date']['element_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date']['element_label_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date']['element_wrapper_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date']['hide_alter_empty'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date']['settings'] = array(
+  'format_type' => 'custom',
+  'custom_date_format' => 'd',
+  'fromto' => 'value',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+$handler->display->display_options['fields']['field_calevent_date']['group_rows'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date']['delta_offset'] = '0';
+/* Field: Content: Event Date: start date for attribute */
+$handler->display->display_options['fields']['field_calevent_date_2']['id'] = 'field_calevent_date_2';
+$handler->display->display_options['fields']['field_calevent_date_2']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_2']['field'] = 'field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_2']['ui_name'] = 'Content: Event Date: start date for attribute';
+$handler->display->display_options['fields']['field_calevent_date_2']['label'] = '';
+$handler->display->display_options['fields']['field_calevent_date_2']['exclude'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date_2']['alter']['trim_whitespace'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date_2']['alter']['strip_tags'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date_2']['element_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_2']['element_label_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_2']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date_2']['element_wrapper_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_2']['settings'] = array(
+  'format_type' => 'custom',
+  'custom_date_format' => 'c',
+  'fromto' => 'value',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+/* Field: Content: Event Date: start and end time */
+$handler->display->display_options['fields']['field_calevent_date_1']['id'] = 'field_calevent_date_1';
+$handler->display->display_options['fields']['field_calevent_date_1']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_1']['field'] = 'field_calevent_date';
+$handler->display->display_options['fields']['field_calevent_date_1']['ui_name'] = 'Content: Event Date: start and end time';
+$handler->display->display_options['fields']['field_calevent_date_1']['label'] = '';
+$handler->display->display_options['fields']['field_calevent_date_1']['alter']['alter_text'] = TRUE;
+$handler->display->display_options['fields']['field_calevent_date_1']['alter']['text'] = '<div class="time" data-date-start="[field_calevent_date_2] ">[field_calevent_date_1]</div>';
+$handler->display->display_options['fields']['field_calevent_date_1']['element_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_1']['element_label_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_1']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date_1']['element_wrapper_type'] = '0';
+$handler->display->display_options['fields']['field_calevent_date_1']['element_default_classes'] = FALSE;
+$handler->display->display_options['fields']['field_calevent_date_1']['settings'] = array(
+  'format_type' => 'custom',
+  'custom_date_format' => 'g:ia',
+  'fromto' => 'both',
+  'multiple_number' => '',
+  'multiple_from' => '',
+  'multiple_to' => '',
+  'show_remaining_days' => 0,
+);
+/* Field: Content: Title */
+$handler->display->display_options['fields']['title']['id'] = 'title';
+$handler->display->display_options['fields']['title']['table'] = 'node';
+$handler->display->display_options['fields']['title']['field'] = 'title';
+$handler->display->display_options['fields']['title']['label'] = '';
+$handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+$handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+$handler->display->display_options['fields']['title']['element_type'] = '0';
+$handler->display->display_options['fields']['title']['element_label_type'] = '0';
+$handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['title']['element_wrapper_type'] = 'h4';
+$handler->display->display_options['fields']['title']['element_default_classes'] = FALSE;
+$handler->display->display_options['fields']['title']['hide_alter_empty'] = FALSE;
+/* Sort criterion: Content: Event Date -  start date (field_calevent_date) */
+$handler->display->display_options['sorts']['field_calevent_date_value']['id'] = 'field_calevent_date_value';
+$handler->display->display_options['sorts']['field_calevent_date_value']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['sorts']['field_calevent_date_value']['field'] = 'field_calevent_date_value';
+/* Filter criterion: Content: Published */
+$handler->display->display_options['filters']['status']['id'] = 'status';
+$handler->display->display_options['filters']['status']['table'] = 'node';
+$handler->display->display_options['filters']['status']['field'] = 'status';
+$handler->display->display_options['filters']['status']['value'] = 1;
+$handler->display->display_options['filters']['status']['group'] = 0;
+$handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+/* Filter criterion: Content: Event Organizer (field_related_program) */
+$handler->display->display_options['filters']['field_related_program_tid']['id'] = 'field_related_program_tid';
+$handler->display->display_options['filters']['field_related_program_tid']['table'] = 'field_data_field_related_program';
+$handler->display->display_options['filters']['field_related_program_tid']['field'] = 'field_related_program_tid';
+$handler->display->display_options['filters']['field_related_program_tid']['operator'] = 'not';
+$handler->display->display_options['filters']['field_related_program_tid']['value'] = array(
+  0 => '264',
+);
+$handler->display->display_options['filters']['field_related_program_tid']['vocabulary'] = 'related_program';
+/* Filter criterion: Content: Open To (field_audience) */
+$handler->display->display_options['filters']['field_audience_tid']['id'] = 'field_audience_tid';
+$handler->display->display_options['filters']['field_audience_tid']['table'] = 'field_data_field_audience';
+$handler->display->display_options['filters']['field_audience_tid']['field'] = 'field_audience_tid';
+$handler->display->display_options['filters']['field_audience_tid']['value'] = array(
+  410 => '410',
+);
+$handler->display->display_options['filters']['field_audience_tid']['type'] = 'select';
+$handler->display->display_options['filters']['field_audience_tid']['vocabulary'] = 'audience';
+/* Filter criterion: Content: Event Date -  start date (field_calevent_date) */
+$handler->display->display_options['filters']['field_calevent_date_value']['id'] = 'field_calevent_date_value';
+$handler->display->display_options['filters']['field_calevent_date_value']['table'] = 'field_data_field_calevent_date';
+$handler->display->display_options['filters']['field_calevent_date_value']['field'] = 'field_calevent_date_value';
+$handler->display->display_options['filters']['field_calevent_date_value']['operator'] = '>=';
+$handler->display->display_options['filters']['field_calevent_date_value']['default_date'] = 'now';
+
+/* Display: Page 4 */
+$handler = $view->new_display('page', 'Page 4', 'page');
+$handler->display->display_options['defaults']['style_plugin'] = FALSE;
+$handler->display->display_options['style_plugin'] = 'default';
+$handler->display->display_options['style_options']['grouping'] = array(
+  0 => array(
+    'field' => 'field_calevent_date_4',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+  1 => array(
+    'field' => 'field_calevent_date',
+    'rendered' => 1,
+    'rendered_strip' => 0,
+  ),
+);
+$handler->display->display_options['style_options']['row_class'] = 'calevent';
+$handler->display->display_options['style_options']['default_row_class'] = FALSE;
+$handler->display->display_options['style_options']['row_class_special'] = FALSE;
+$handler->display->display_options['defaults']['style_options'] = FALSE;
+$handler->display->display_options['defaults']['row_plugin'] = FALSE;
+$handler->display->display_options['row_plugin'] = 'fields';
+$handler->display->display_options['defaults']['row_options'] = FALSE;
+$handler->display->display_options['path'] = 'events/calendar/new';

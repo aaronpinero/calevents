@@ -1,0 +1,150 @@
+:root {
+  --calevent-space:16px;
+  --calevent-pad:8px;
+  --calevent-color-time:#999;
+  --calevent-color-day:#de8f41;
+  --calevent-color-link:#418fde;
+  --calevent-color-hover:#002855;
+  --calevent-color-border:#e6e6e6;
+}
+%calheader {
+  border:2px var(--calevent-color-border) solid;
+  border-radius:4px;
+  font-size:22px;
+  font-weight:bold;
+  line-height:28px;
+  padding: 8px;
+  text-align: center;
+}
+body {
+  color:#222;
+  font-family:"Open Sans",sans-serif;
+  margin:0;
+  padding:32px;
+}
+a[href] {
+  color:var(--calevent-color-link);
+  transition:all 250ms;
+  &:hover {
+    color:var(--calevent-color-hover);
+  }
+}
+.view-calevents {
+  padding-bottom:var(--calevent-space);
+  &::after { /* clearfix */
+    clear:both;
+    content:"";
+    display:block;
+  }
+  * {
+    box-sizing:border-box;
+    margin:0;
+    position:relative;
+  }
+  .view-grouping {
+    &::after { /* clearfix */
+      clear:both;
+      content:"";
+      display:block;
+    }
+  }
+  .view-grouping-header { /* should be like an h2 */
+    @extend %calheader;
+    margin:16px 0 0 0;
+  }
+  h3,
+  .calevent {
+    padding-bottom:8px;
+    padding-top:8px;
+  }
+  h3 {
+    clear:both;
+    float:left;
+    font-weigth:normal;
+    width:64px;
+    .month {
+      display:block;
+      font-size:12px;
+      line-height:20px;
+      font-weight:normal;
+      text-align:center;
+      text-transform:uppercase;
+      width:48px;
+    }
+    .day {
+      color:var(--calevent-color-day);
+      display:block;
+      font-size:24px;
+      line-height:32px;
+      font-weight:bold;
+      text-align:center;
+      width:48px;
+    }
+  }
+  h3:first-child,
+  .calevent + h3 {
+    margin-top:16px;
+  }
+  h3 + .calevent {
+    margin-top:16px;
+  }
+  .calevent {
+    border-left:2px #eee solid;
+    float:right;
+    padding-left:30px;
+    width:calc(100% - 64px);
+    .time {
+      color:var(--calevent-color-time);
+      font-size:14px;
+      line-height:20px;
+    }
+    &.allday .time .date-display-single {
+      background-color:rgba(222,143,65,0.1); /* mostly transparent version of #de8f41 */
+      border:1px rgba(222,143,65,0.5) solid;
+      border-radius:2px;
+      color:rgb(222,143,65);
+      display:inline-block;
+      font-size:10px;
+      font-weight:bold;
+      letter-spacing:0.05em;
+      line-height:12px;
+      padding:3px 6px;
+      text-transform:uppercase;
+    }
+    h4 {
+      font-size:18px;
+      line-height:24px;
+      padding-top:4px;
+    }
+  }
+}
+#calevents-minimonth {
+  position:relative;
+  .header {
+    position:relative;
+    h2 {
+      @extend %calheader;
+      margin:0;
+    }
+    .left,
+    .right {
+      cursor:pointer;
+      height:0px;
+      border-style:solid;
+      top:50%;
+      margin-top:-7.5px;
+      position: absolute;
+      width:0px;
+    }
+    .left {
+      border-color:transparent rgba(160, 159, 160, 1) transparent transparent;
+      border-width:7.5px 10px 7.5px 0;
+      left:20px;
+    }
+    .right {
+      border-color:transparent transparent transparent rgba(160, 159, 160, 1);
+      border-width:7.5px 0 7.5px 10px;
+      right:20px;
+    }
+  }
+}
