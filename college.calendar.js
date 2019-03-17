@@ -54,10 +54,27 @@ Calendar.prototype.drawMonth = function() {
     self.month = document.createElement("div");
     self.month.className = "month";
     self.el.appendChild(self.month);
-    //this.backFill();
+    self.backFill();
     self.currentMonth();
-    //this.fowardFill();
+    self.fowardFill();
     self.month.className = "month new";
+  }
+};
+Calendar.prototype.backFill = function() {
+  var clone = this.current.clone();
+  var dayOfWeek = clone.day();
+  if(!dayOfWeek) { return; }
+  clone.subtract("days", dayOfWeek+1);
+  for(var i = dayOfWeek; i > 0 ; i--) {
+    this.drawDay(clone.add("days", 1));
+  }
+};
+Calendar.prototype.fowardFill = function() {
+  var clone = this.current.clone().add("months",1).subtract("days",1);
+  var dayOfWeek = clone.day();
+  if(dayOfWeek === 6) { return; }
+  for(var i = dayOfWeek; i < 6 ; i++) {
+    this.drawDay(clone.add("days", 1));
   }
 };
 Calendar.prototype.currentMonth = function() {
@@ -139,7 +156,7 @@ Calendar.prototype.getDayClass = function(day) {
     });
     
     // set state
-    $(".view-calevents").addClass("js-processed");
+    $(".view-calevents").addClass("calevents-js-processed");
     
     // create container for mini-month
     $(".view-calevents").before("<div id=\"calevents-minimonth\"></div>");
