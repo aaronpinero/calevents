@@ -75,7 +75,7 @@ $handler->display->display_options['fields']['field_calevent_date']['element_wra
 $handler->display->display_options['fields']['field_calevent_date']['hide_alter_empty'] = FALSE;
 $handler->display->display_options['fields']['field_calevent_date']['settings'] = array(
   'format_type' => 'custom',
-  'custom_date_format' => 'd',
+  'custom_date_format' => 'j',
   'fromto' => 'value',
   'multiple_number' => '',
   'multiple_from' => '',
