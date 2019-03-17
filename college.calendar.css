@@ -141,7 +141,8 @@ a[href] {
       #calevents-minimonth .header .right:hover {
         background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon id="angle-right" stroke="none" stroke-width="1" fill="#002855" points="54 32 22 64 15 57 40 32 15 7 22 0"></polygon></svg>'); }
   #calevents-minimonth .month {
-    opacity: 0; }
+    opacity: 0;
+    margin-top: 8px; }
     #calevents-minimonth .month.new {
       -webkit-animation: fadeIn 1s ease-out;
       -moz-animation: fadeIn 1s ease-out;
@@ -169,20 +170,28 @@ a[href] {
       opacity: 1; }
   #calevents-minimonth .week {
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 8px; }
+    flex-wrap: wrap; }
+    @media (min-width: 1024px) {
+      #calevents-minimonth .week:not(:last-child) {
+        border-bottom: 2px var(--calevent-grey-light) solid; } }
   #calevents-minimonth .day {
+    box-sizing: border-box;
     flex: 0 1 calc(100% / 7);
+    padding-top: 8px;
     text-align: center; }
+    @media (min-width: 1024px) {
+      #calevents-minimonth .day {
+        min-height: 144px; }
+        #calevents-minimonth .day:not(:first-child) {
+          border-left: 2px var(--calevent-grey-light) solid; } }
     #calevents-minimonth .day .day-number {
       border: 2px transparent solid;
       box-sizing: border-box; }
-    #calevents-minimonth .day.other {
+    #calevents-minimonth .day.other * {
       opacity: 0.25; }
-      #calevents-minimonth .day.other .day-number {
-        color: var(--calevent-grey); }
+    #calevents-minimonth .day.other .day-number {
+      color: var(--calevent-grey); }
     #calevents-minimonth .day.today .day-number {
-      box-sizing: border-box;
       border: 2px rgba(190, 112, 33, 0.2) solid;
       border-radius: 16px;
       margin: 0 auto;
@@ -203,59 +212,59 @@ a[href] {
 @-webkit-keyframes moveToBottomFadeMonth {
   to {
     opacity: 0;
-    -webkit-transform: translateY(30%) scale(0.95); } }
+    -webkit-transform: translateY(10%) scale(0.97); } }
 
 @-moz-keyframes moveToBottomFadeMonth {
   to {
     opacity: 0;
-    -moz-transform: translateY(30%) scale(0.95); } }
+    -moz-transform: translateY(10%) scale(0.97); } }
 
 @keyframes moveToBottomFadeMonth {
   to {
     opacity: 0;
-    transform: translateY(30%) scale(0.95); } }
+    transform: translateY(10%) scale(0.97); } }
 
 @-webkit-keyframes moveFromBottomFadeMonth {
   from {
     opacity: 0;
-    -webkit-transform: translateY(-30%) scale(0.95); } }
+    -webkit-transform: translateY(-10%) scale(0.97); } }
 
 @-moz-keyframes moveFromBottomFadeMonth {
   from {
     opacity: 0;
-    -moz-transform: translateY(-30%) scale(0.95); } }
+    -moz-transform: translateY(-10%) scale(0.97); } }
 
 @keyframes moveFromBottomFadeMonth {
   from {
     opacity: 0;
-    transform: translateY(-30%) scale(0.95); } }
+    transform: translateY(-10%) scale(0.97); } }
 
 @-webkit-keyframes moveToTopFadeMonth {
   to {
     opacity: 0;
-    -webkit-transform: translateY(-30%) scale(0.95); } }
+    -webkit-transform: translateY(-10%) scale(0.97); } }
 
 @-moz-keyframes moveToTopFadeMonth {
   to {
     opacity: 0;
-    -moz-transform: translateY(-30%) scale(0.95); } }
+    -moz-transform: translateY(-10%) scale(0.97); } }
 
 @keyframes moveToTopFadeMonth {
   to {
     opacity: 0;
-    transform: translateY(-30%) scale(0.95); } }
+    transform: translateY(-10%) scale(0.97); } }
 
 @-webkit-keyframes moveFromTopFadeMonth {
   from {
     opacity: 0;
-    -webkit-transform: translateY(30%) scale(0.95); } }
+    -webkit-transform: translateY(10%) scale(0.97); } }
 
 @-moz-keyframes moveFromTopFadeMonth {
   from {
     opacity: 0;
-    -moz-transform: translateY(30%) scale(0.95); } }
+    -moz-transform: translateY(10%) scale(0.97); } }
 
 @keyframes moveFromTopFadeMonth {
   from {
     opacity: 0;
-    transform: translateY(30%) scale(0.95); } }
+    transform: translateY(10%) scale(0.97); } }

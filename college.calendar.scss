@@ -1,5 +1,6 @@
 $blue:#418fde;
 $blue-dark:#002855;
+$break-desktop:1024px;
 :root {
   --calevent-grey:#999;
   --calevent-grey-light:#e6e6e6;
@@ -169,6 +170,7 @@ a[href] {
   }
   .month {
     opacity:0;
+    margin-top:8px;
     &.new {
       -webkit-animation:fadeIn 1s ease-out;
       -moz-animation:fadeIn 1s ease-out;
@@ -203,11 +205,23 @@ a[href] {
   .week {
     display:flex;
     flex-wrap:wrap;
-    margin-top:8px;
+    @media (min-width:$break-desktop) {
+      &:not(:last-child) {
+        border-bottom:2px var(--calevent-grey-light) solid;
+      }
+    }
   }
   .day {
+    box-sizing:border-box;
     flex:0 1 calc(100% / 7);
+    padding-top:8px;
     text-align:center;
+    @media (min-width:$break-desktop) {
+      min-height:144px;
+      &:not(:first-child) {
+        border-left:2px var(--calevent-grey-light) solid;
+      }
+    }
     .day-name {
       @extend %caldayname;
     }
@@ -217,14 +231,15 @@ a[href] {
       box-sizing:border-box;
     }
     &.other {
-      opacity:0.25;
+      * {
+        opacity:0.25;
+      }
       .day-number {
         color:var(--calevent-grey);
       }
     }
     &.today {
       .day-number {
-        box-sizing: border-box;
         border:2px rgba(invert($blue),0.2) solid;
         border-radius:16px;
         margin:0 auto;
@@ -245,43 +260,43 @@ a[href] {
 }
 
 @-webkit-keyframes moveToBottomFadeMonth {
-  to { opacity:0; -webkit-transform:translateY(30%) scale(.95); }
+  to { opacity:0; -webkit-transform:translateY(10%) scale(.97); }
 }
 @-moz-keyframes moveToBottomFadeMonth {
-  to { opacity:0; -moz-transform:translateY(30%) scale(.95); }
+  to { opacity:0; -moz-transform:translateY(10%) scale(.97); }
 }
 @keyframes moveToBottomFadeMonth {
-  to { opacity:0; transform:translateY(30%) scale(.95); }
+  to { opacity:0; transform:translateY(10%) scale(.97); }
 }
 
 @-webkit-keyframes moveFromBottomFadeMonth {
-  from { opacity:0; -webkit-transform:translateY(-30%) scale(.95); }
+  from { opacity:0; -webkit-transform:translateY(-10%) scale(.97); }
 }
 @-moz-keyframes moveFromBottomFadeMonth {
-  from { opacity:0; -moz-transform:translateY(-30%) scale(.95); }
+  from { opacity:0; -moz-transform:translateY(-10%) scale(.97); }
 }
 @keyframes moveFromBottomFadeMonth {
-  from { opacity:0; transform:translateY(-30%) scale(.95); }
+  from { opacity:0; transform:translateY(-10%) scale(.97); }
 }
 
 @-webkit-keyframes moveToTopFadeMonth {
-  to { opacity:0; -webkit-transform:translateY(-30%) scale(.95); }
+  to { opacity:0; -webkit-transform:translateY(-10%) scale(.97); }
 }
 @-moz-keyframes moveToTopFadeMonth {
-  to { opacity:0; -moz-transform:translateY(-30%) scale(.95); }
+  to { opacity:0; -moz-transform:translateY(-10%) scale(.97); }
 }
 @keyframes moveToTopFadeMonth {
-  to { opacity:0; transform:translateY(-30%) scale(.95); }
+  to { opacity:0; transform:translateY(-10%) scale(.97); }
 }
 
 @-webkit-keyframes moveFromTopFadeMonth {
-  from { opacity:0; -webkit-transform:translateY(30%) scale(.95); }
+  from { opacity:0; -webkit-transform:translateY(10%) scale(.97); }
 }
 @-moz-keyframes moveFromTopFadeMonth {
-  from { opacity:0; -moz-transform:translateY(30%) scale(.95); }
+  from { opacity:0; -moz-transform:translateY(10%) scale(.97); }
 }
 @keyframes moveFromTopFadeMonth {
-  from { opacity:0; transform:translateY(30%) scale(.95); }
+  from { opacity:0; transform:translateY(10%) scale(.97); }
 }
 
 
