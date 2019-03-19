@@ -279,6 +279,7 @@ a[href] {
   }
   .day {
     box-sizing:border-box;
+    cursor:pointer;
     flex:0 1 calc(100% / 7);
     padding-top:8px;
     text-align:center;
@@ -300,13 +301,40 @@ a[href] {
       line-height:8px;
       min-height:12px;
       padding:0 4px;
-      span {
-        background-color:$blue-292;
-        border-radius:50%;
-        display:inline-block;
-        height:8px;
-        margin:0 2px 4px 2px;
-        width:8px;
+      > div {
+        @media (max-width:$break-desktop - 1px) {
+          background-color:$blue-292;
+          border-radius:50%;
+          display:inline-block;
+          font-size:0;
+          height:8px;
+          margin:0 2px 4px 2px;
+          overflow:hidden;
+          width:8px;
+        }
+        @media (min-width:$break-desktop) {
+          height:12px;
+          overflow:hidden;
+          text-align:left;
+          text-overflow:clip;
+          margin:0 5px 4px 5px;
+          width:calc(100% - 10px);
+          * {
+            display:inline;
+            font-size:10px;
+            line-height:12px;
+          }
+          .date-display-range {
+            font-size:0;
+            .date-display-end {
+              display:none;
+            }
+            .date-display-start {
+              font-size:10px;
+              margin-right:2px;
+            }
+          }
+        }
       }
     }
     &.other {

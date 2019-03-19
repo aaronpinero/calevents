@@ -130,8 +130,9 @@ Calendar.prototype.drawEvents = function(day, element) {
       return memo;
     }, []);
     todaysEvents.forEach(function(ev) {
-      var evSpan = document.createElement("span");
-      element.appendChild(evSpan);
+      var event = document.createElement("div");
+      event.innerHTML = ev.html
+      element.appendChild(event);
     });
   }
 };
