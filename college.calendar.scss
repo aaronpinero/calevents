@@ -3,6 +3,7 @@ $blue-dark:#002855;
 $blue-292:#66aee6;
 $gold:#fcd450;
 $break-desktop:1024px;
+$detail-height:256px;
 :root {
   --cal-color-shaded:#f2f2f2;
   --cal-color-text-light:#999999;
@@ -36,6 +37,16 @@ $break-desktop:1024px;
   font-size:24px;
   line-height:32px;
   font-weight:bold;
+}
+%caltime {
+  color:var(--cal-color-text-light);
+  font-size:14px;
+  line-height:20px;
+}
+%caleventname {
+  font-size:18px;
+  line-height:24px;
+  padding-top:4px;
 }
 body {
   color:#222;
@@ -123,9 +134,7 @@ a[href] {
     padding-left:30px;
     width:calc(100% - 64px);
     .time {
-      color:var(--cal-color-text-light);
-      font-size:14px;
-      line-height:20px;
+      @extend %caltime;
     }
     &.allday .time .date-display-single {
       background-color:rgba(invert($blue),0.1);
@@ -141,9 +150,7 @@ a[href] {
       text-transform:uppercase;
     }
     h4 {
-      font-size:18px;
-      line-height:24px;
-      padding-top:4px;
+      @extend %caleventname;
     }
   }
 }
@@ -323,9 +330,11 @@ a[href] {
   .details {
     background:var(--cal-color-shaded);
     border-radius:4px;
+    box-shadow:0 0 8px rgba(0,0,0,0.2) inset;
+    margin-top:6px;
     position:relative;
     width:100%;
-    height:384px;
+    height:$detail-height;
     z-index:100;
     &.in {
       -webkit-animation:moveFromTopFade 0.5s ease both;
@@ -333,12 +342,13 @@ a[href] {
       animation:moveFromTopFade 0.5s ease both;
     }
     &.out {
+      overflow:hidden;
       -webkit-animation:moveToTopFade 0.5s ease both;
       -moz-animation:moveToTopFade 0.5s ease both;
       animation:moveToTopFade 0.5s ease both;
     }
     .arrow {
-      border-color:transparent transparent rgba(0,0,0,0.22) transparent;
+      border-color:transparent transparent rgba(0,0,0,0.15) transparent;
       border-style:solid;
       border-width:0 8px 8px 8px;
       height:0px;
@@ -350,8 +360,9 @@ a[href] {
       width:0px;
     }
     .events {
-      height:384px;
-      padding:16px 0;
+      box-sizing:border-box;
+      height:$detail-height;
+      padding:24px;
       overflow-y:auto;
       overflow-x:hidden;
       &.in {
@@ -368,14 +379,18 @@ a[href] {
         animation:fadeOut .3s ease both;
       }
       .event {
-        font-size:16px;
-        line-height:22px;
-        padding:4px 16px 4px 32px;
-        vertical-align:top;
-        position:relative;
         &.empty {
           color:var(--cal-color-text-light)
         }
+        .time {
+          @extend %caltime;
+        }
+        h4 {
+          @extend %caleventname;
+        }
+      }
+      .event + .event {
+        margin-top:16px;
       }
     }
   }
@@ -392,33 +407,33 @@ a[href] {
 }
 
 @-webkit-keyframes fadeOut  {
-  to { opacity:0; }
+  to { opacity:0; height:0px; }
 }
 @-moz-keyframes fadeOut  {
-  to { opacity:0; }
+  to { opacity:0; height:0px; }
 }
 @keyframes fadeOut  {
-  to { opacity:0; }
+  to { opacity:0; height:0px; }
 }
 
 @-webkit-keyframes moveFromTopFade {
-  from { opacity:0.3; height:0px; -webkit-transform:translateY(-100%); }
+  from { opacity:0.3; height:0px; margin-top:0; -webkit-transform:translateY(-100%); }
 }
 @-moz-keyframes moveFromTopFade {
-  from { opacity:0.3; height:0px; -moz-transform:translateY(-100%); }
+  from { opacity:0.3; height:0px; margin-top:0; -moz-transform:translateY(-100%); }
 }
 @keyframes moveFromTopFade {
-  from { opacity:0.3; height:0px; transform:translateY(-100%); }
+  from { opacity:0.3; height:0px; margin-top:0; transform:translateY(-100%); }
 }
 
 @-webkit-keyframes moveToTopFade {
-  to { opacity:0.3; height:0px; }
+  to { opacity:0.3; height:0px; margin-top:0; }
 }
 @-moz-keyframes moveToTopFade {
-  to { opacity:0.3; height:0px; }
+  to { opacity:0.3; height:0px; margin-top:0; }
 }
 @keyframes moveToTopFade {
-  to { opacity:0.3; height:0px; }
+  to { opacity:0.3; height:0px; margin-top:0; }
 }
 
 @-webkit-keyframes moveToBottomFadeMonth {

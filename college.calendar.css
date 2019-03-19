@@ -32,6 +32,16 @@
   line-height: 32px;
   font-weight: bold; }
 
+.view-calevents .calevent .time, #calevents-minimonth .details .events .event .time {
+  color: var(--cal-color-text-light);
+  font-size: 14px;
+  line-height: 20px; }
+
+.view-calevents .calevent h4, #calevents-minimonth .details .events .event h4 {
+  font-size: 18px;
+  line-height: 24px;
+  padding-top: 4px; }
+
 body {
   color: #222;
   font-family: "Open Sans",sans-serif;
@@ -98,10 +108,6 @@ a[href] {
     float: right;
     padding-left: 30px;
     width: calc(100% - 64px); }
-    .view-calevents .calevent .time {
-      color: var(--cal-color-text-light);
-      font-size: 14px;
-      line-height: 20px; }
     .view-calevents .calevent.allday .time .date-display-single {
       background-color: rgba(190, 112, 33, 0.1);
       border: 1px rgba(190, 112, 33, 0.5) solid;
@@ -114,10 +120,6 @@ a[href] {
       line-height: 12px;
       padding: 3px 6px;
       text-transform: uppercase; }
-    .view-calevents .calevent h4 {
-      font-size: 18px;
-      line-height: 24px;
-      padding-top: 4px; }
 
 .view-style-toggle {
   display: flex;
@@ -253,20 +255,23 @@ a[href] {
   #calevents-minimonth .details {
     background: var(--cal-color-shaded);
     border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2) inset;
+    margin-top: 6px;
     position: relative;
     width: 100%;
-    height: 384px;
+    height: 256px;
     z-index: 100; }
     #calevents-minimonth .details.in {
       -webkit-animation: moveFromTopFade 0.5s ease both;
       -moz-animation: moveFromTopFade 0.5s ease both;
       animation: moveFromTopFade 0.5s ease both; }
     #calevents-minimonth .details.out {
+      overflow: hidden;
       -webkit-animation: moveToTopFade 0.5s ease both;
       -moz-animation: moveToTopFade 0.5s ease both;
       animation: moveToTopFade 0.5s ease both; }
     #calevents-minimonth .details .arrow {
-      border-color: transparent transparent rgba(0, 0, 0, 0.22) transparent;
+      border-color: transparent transparent rgba(0, 0, 0, 0.15) transparent;
       border-style: solid;
       border-width: 0 8px 8px 8px;
       height: 0px;
@@ -277,8 +282,9 @@ a[href] {
       transition: all 0.7s ease;
       width: 0px; }
     #calevents-minimonth .details .events {
-      height: 384px;
-      padding: 16px 0;
+      box-sizing: border-box;
+      height: 256px;
+      padding: 24px;
       overflow-y: auto;
       overflow-x: hidden; }
       #calevents-minimonth .details .events.in {
@@ -292,14 +298,10 @@ a[href] {
         -webkit-animation: fadeOut 0.3s ease both;
         -moz-animation: fadeOut 0.3s ease both;
         animation: fadeOut 0.3s ease both; }
-      #calevents-minimonth .details .events .event {
-        font-size: 16px;
-        line-height: 22px;
-        padding: 4px 16px 4px 32px;
-        vertical-align: top;
-        position: relative; }
-        #calevents-minimonth .details .events .event.empty {
-          color: var(--cal-color-text-light); }
+      #calevents-minimonth .details .events .event.empty {
+        color: var(--cal-color-text-light); }
+      #calevents-minimonth .details .events .event + .event {
+        margin-top: 16px; }
 
 @-webkit-keyframes fadeIn {
   from {
@@ -315,48 +317,57 @@ a[href] {
 
 @-webkit-keyframes fadeOut {
   to {
-    opacity: 0; } }
+    opacity: 0;
+    height: 0px; } }
 
 @-moz-keyframes fadeOut {
   to {
-    opacity: 0; } }
+    opacity: 0;
+    height: 0px; } }
 
 @keyframes fadeOut {
   to {
-    opacity: 0; } }
+    opacity: 0;
+    height: 0px; } }
 
 @-webkit-keyframes moveFromTopFade {
   from {
     opacity: 0.3;
     height: 0px;
+    margin-top: 0;
     -webkit-transform: translateY(-100%); } }
 
 @-moz-keyframes moveFromTopFade {
   from {
     opacity: 0.3;
     height: 0px;
+    margin-top: 0;
     -moz-transform: translateY(-100%); } }
 
 @keyframes moveFromTopFade {
   from {
     opacity: 0.3;
     height: 0px;
+    margin-top: 0;
     transform: translateY(-100%); } }
 
 @-webkit-keyframes moveToTopFade {
   to {
     opacity: 0.3;
-    height: 0px; } }
+    height: 0px;
+    margin-top: 0; } }
 
 @-moz-keyframes moveToTopFade {
   to {
     opacity: 0.3;
-    height: 0px; } }
+    height: 0px;
+    margin-top: 0; } }
 
 @keyframes moveToTopFade {
   to {
     opacity: 0.3;
-    height: 0px; } }
+    height: 0px;
+    margin-top: 0; } }
 
 @-webkit-keyframes moveToBottomFadeMonth {
   to {
