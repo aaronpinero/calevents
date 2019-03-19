@@ -151,6 +151,7 @@ Calendar.prototype.openDay = function(el) {
   var day = this.current.clone().date(dayNumber);
   if (el.classList.contains("open")) {
     // if we've clicked on the open day, close it
+    el.classList.remove("open");
     var currentOpened = document.querySelector(".details");
     if(currentOpened) {
       currentOpened.addEventListener("webkitAnimationEnd", function() {
@@ -172,7 +173,6 @@ Calendar.prototype.openDay = function(el) {
     var currentOpenedDay = document.querySelector(".day.open");
     if (currentOpenedDay !== null) { currentOpenedDay.classList.remove("open"); }
     el.classList.add("open");
-
     var currentOpened = document.querySelector(".details");
     //Check to see if there is an open detais box on the current row
     if(currentOpened && currentOpened.parentNode === el.parentNode) {
