@@ -149,20 +149,9 @@ Calendar.prototype.openDay = function(el) {
   var details, arrow;
   var dayNumber = +el.querySelectorAll(".day-number")[0].innerText || +el.querySelectorAll(".day-number")[0].textContent;
   var day = this.current.clone().date(dayNumber);
-  if (!el.classList.contains("open")) {
-    var currentOpenedDay = document.querySelector(".day.open");
-    if (currentOpenedDay !== null) { currentOpenedDay.classList.remove("open"); }
-    el.classList.add("open");
-  }
-  var currentOpened = document.querySelector(".details");
-  //Check to see if there is an open detais box on the current row
-  if(currentOpened && currentOpened.parentNode === el.parentNode) {
-    details = currentOpened;
-    arrow = document.querySelector(".arrow");
-  }
-  else {
-    //Close the open events on differnt week row
-    //currentOpened && currentOpened.parentNode.removeChild(currentOpened);
+  if (el.classList.contains("open")) {
+    // if we've clicked on the open day, close it
+    var currentOpened = document.querySelector(".details");
     if(currentOpened) {
       currentOpened.addEventListener("webkitAnimationEnd", function() {
         currentOpened.parentNode.removeChild(currentOpened);
@@ -178,24 +167,55 @@ Calendar.prototype.openDay = function(el) {
       });
       currentOpened.className = "details out";
     }
-    //Create the Details Container
-    details = document.createElement("div");
-    details.className = "details in";
-    //Create the arrow
-    var arrow = document.createElement("div");
-    arrow.className = "arrow";
-    //Create the event wrapper
-    details.appendChild(arrow);
-    el.parentNode.appendChild(details);
   }
-  var todaysEvents = this.events.reduce(function(memo, ev) {
-    if(ev.date.isSame(day, "day")) {
-      memo.push(ev);
+  else {
+    var currentOpenedDay = document.querySelector(".day.open");
+    if (currentOpenedDay !== null) { currentOpenedDay.classList.remove("open"); }
+    el.classList.add("open");
+
+    var currentOpened = document.querySelector(".details");
+    //Check to see if there is an open detais box on the current row
+    if(currentOpened && currentOpened.parentNode === el.parentNode) {
+      details = currentOpened;
+      arrow = document.querySelector(".arrow");
     }
-    return memo;
-  }, []);
-  this.renderEvents(todaysEvents,details);
-  arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + (el.offsetWidth / 2) + "px";
+    else {
+      //Close the open events on differnt week row
+      //currentOpened && currentOpened.parentNode.removeChild(currentOpened);
+      if(currentOpened) {
+        currentOpened.addEventListener("webkitAnimationEnd", function() {
+          currentOpened.parentNode.removeChild(currentOpened);
+        });
+        currentOpened.addEventListener("oanimationend", function() {
+          currentOpened.parentNode.removeChild(currentOpened);
+        });
+        currentOpened.addEventListener("msAnimationEnd", function() {
+          currentOpened.parentNode.removeChild(currentOpened);
+        });
+        currentOpened.addEventListener("animationend", function() {
+          currentOpened.parentNode.removeChild(currentOpened);
+        });
+        currentOpened.className = "details out";
+      }
+      //Create the Details Container
+      details = document.createElement("div");
+      details.className = "details in";
+      //Create the arrow
+      var arrow = document.createElement("div");
+      arrow.className = "arrow";
+      //Create the event wrapper
+      details.appendChild(arrow);
+      el.parentNode.appendChild(details);
+    }
+    var todaysEvents = this.events.reduce(function(memo, ev) {
+      if(ev.date.isSame(day, "day")) {
+        memo.push(ev);
+      }
+      return memo;
+    }, []);
+    this.renderEvents(todaysEvents,details);
+    arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + (el.offsetWidth / 2) + "px";
+  }
 };
 Calendar.prototype.renderEvents = function(events, ele) {
   //Remove any events in the current details element
