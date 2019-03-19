@@ -146,17 +146,19 @@ Calendar.prototype.getDayClass = function(day) {
   return classes.join(' ');
 };
 Calendar.prototype.nextMonth = function() {
-  this.current.add(1,"months");
-  this.next = true;
-  this.draw();
+  if (this.current.isBefore(maxdate,"month")) {
+    this.current.add(1,"months");
+    this.next = true;
+    this.draw();
+  }
 };
 Calendar.prototype.prevMonth = function() {
-  this.current.subtract(1,"months");
-  this.next = false;
-  this.draw();
+  if (this.current.isAfter(mindate,"month")) { 
+    this.current.subtract(1,"months");
+    this.next = false;
+    this.draw();
+  }
 };
-
-
 
 (function($) {
   $(function() {
@@ -173,7 +175,7 @@ Calendar.prototype.prevMonth = function() {
     $(".view-calevents").addClass("calevents-js-processed");
     
     // create container for mini-month
-    $(".view-calevents").before("<div id=\"calevents-minimonth\"></div>");
+    $(".view-calevents").prepend("<div id=\"calevents-minimonth\"></div>");
     
     // collect event data as array of objects
     var eventdata = [];
@@ -194,8 +196,24 @@ Calendar.prototype.prevMonth = function() {
       }
     }
     
-    // create minimonth
-    var minimonth = new Calendar('#calevents-minimonth',eventdata); console.log(minimonth);
-                        
+    // create minimonth and toggle
+    if (eventdata.length) {
+      // minimonth
+      var minimonth = new Calendar("#calevents-minimonth",eventdata); // console.log(minimonth);
+      // toggle
+      $(".view-calevents").addClass("view-style-cal").prepend("<div class=\"view-style-toggle\"><div class=\"view-style-list\">List</div><div class=\"view-style-cal on\">Calendar</div></div>");
+      $(".view-calevents .view-style-toggle .view-style-list").click(function(){
+        if (!$(this).hasClass("on")) {
+          $(".view-calevents").addClass("view-style-list").removeClass("view-style-cal").find(".view-style-toggle .view-style-cal").removeClass("on");
+          $(this).addClass("on");
+        }
+      });
+      $(".view-calevents .view-style-toggle .view-style-cal").click(function(){
+        if (!$(this).hasClass("on")) {
+          $(".view-calevents").addClass("view-style-cal").removeClass("view-style-list").find(".view-style-toggle .view-style-list").removeClass("on");
+          $(this).addClass("on");
+        }
+      });
+    }                  
   });
 })(jQuery);
