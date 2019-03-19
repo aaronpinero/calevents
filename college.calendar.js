@@ -100,9 +100,9 @@ Calendar.prototype.drawDay = function(day) {
   //Outer Day
   var outer = document.createElement("div");
   outer.className = self.getDayClass(day);
-  //outer.addEventListener('click', function() {
-  //  self.openDay(this);
-  //});
+  outer.addEventListener('click', function() {
+    self.openDay(this);
+  });
   //Day Name
   var name = document.createElement("div");
   name.className = "day-name";
@@ -182,7 +182,7 @@ Calendar.prototype.openDay = function(el) {
     details = document.createElement("div");
     details.className = "details in";
     //Create the arrow
-    var arrow = createElement("div", "arrow");
+    var arrow = document.createElement("div");
     arrow.className = "arrow";
     //Create the event wrapper
     details.appendChild(arrow);
@@ -209,39 +209,37 @@ Calendar.prototype.renderEvents = function(events, ele) {
     div.innerHTML = ev.html;
     wrapper.appendChild(div);
   });
-
-    if(!events.length) {
-      var div = createElement('div', 'event empty');
-      var span = createElement('span', '', 'No Events');
-
-      div.appendChild(span);
-      wrapper.appendChild(div);
-    }
-
-    if(currentWrapper) {
-      currentWrapper.className = 'events out';
-      currentWrapper.addEventListener('webkitAnimationEnd', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-      currentWrapper.addEventListener('oanimationend', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-      currentWrapper.addEventListener('msAnimationEnd', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-      currentWrapper.addEventListener('animationend', function() {
-        currentWrapper.parentNode.removeChild(currentWrapper);
-        ele.appendChild(wrapper);
-      });
-    } else {
-      ele.appendChild(wrapper);
-    }
+  if(!events.length) {
+    var div = document.createElement("div");
+    div.className = "event empty";
+    var span = document.createElement("span");
+    span.innerText = span.textContent = "No Events";
+    div.appendChild(span);
+    wrapper.appendChild(div);
   }
-
-
+  if(currentWrapper) {
+    currentWrapper.className = 'events out';
+    currentWrapper.addEventListener('webkitAnimationEnd', function() {
+      currentWrapper.parentNode.removeChild(currentWrapper);
+      ele.appendChild(wrapper);
+    });
+    currentWrapper.addEventListener('oanimationend', function() {
+      currentWrapper.parentNode.removeChild(currentWrapper);
+      ele.appendChild(wrapper);
+    });
+    currentWrapper.addEventListener('msAnimationEnd', function() {
+      currentWrapper.parentNode.removeChild(currentWrapper);
+      ele.appendChild(wrapper);
+    });
+    currentWrapper.addEventListener('animationend', function() {
+      currentWrapper.parentNode.removeChild(currentWrapper);
+      ele.appendChild(wrapper);
+    });
+  }
+  else {
+    ele.appendChild(wrapper);
+  }
+};
 Calendar.prototype.nextMonth = function() {
   if (this.current.isBefore(maxdate,"month")) {
     this.current.add(1,"months");

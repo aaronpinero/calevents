@@ -250,6 +250,56 @@ a[href] {
       border-radius: 16px;
       margin: 0 auto;
       max-width: 56px; }
+  #calevents-minimonth .details {
+    background: var(--cal-color-shaded);
+    border-radius: 4px;
+    position: relative;
+    width: 100%;
+    height: 384px;
+    z-index: 100; }
+    #calevents-minimonth .details.in {
+      -webkit-animation: moveFromTopFade 0.5s ease both;
+      -moz-animation: moveFromTopFade 0.5s ease both;
+      animation: moveFromTopFade 0.5s ease both; }
+    #calevents-minimonth .details.out {
+      -webkit-animation: moveToTopFade 0.5s ease both;
+      -moz-animation: moveToTopFade 0.5s ease both;
+      animation: moveToTopFade 0.5s ease both; }
+    #calevents-minimonth .details .arrow {
+      border-color: transparent transparent rgba(0, 0, 0, 0.22) transparent;
+      border-style: solid;
+      border-width: 0 8px 8px 8px;
+      height: 0px;
+      left: 50%;
+      margin-left: -8px;
+      position: absolute;
+      top: -8px;
+      transition: all 0.7s ease;
+      width: 0px; }
+    #calevents-minimonth .details .events {
+      height: 384px;
+      padding: 16px 0;
+      overflow-y: auto;
+      overflow-x: hidden; }
+      #calevents-minimonth .details .events.in {
+        -webkit-animation: fadeIn 0.3s ease both;
+        -moz-animation: fadeIn 0.3s ease both;
+        animation: fadeIn 0.3s ease both;
+        -webkit-animation-delay: .3s;
+        -moz-animation-delay: .3s;
+        animation-delay: .3s; }
+      #calevents-minimonth .details .events.out {
+        -webkit-animation: fadeOut 0.3s ease both;
+        -moz-animation: fadeOut 0.3s ease both;
+        animation: fadeOut 0.3s ease both; }
+      #calevents-minimonth .details .events .event {
+        font-size: 16px;
+        line-height: 22px;
+        padding: 4px 16px 4px 32px;
+        vertical-align: top;
+        position: relative; }
+        #calevents-minimonth .details .events .event.empty {
+          color: var(--cal-color-text-light); }
 
 @-webkit-keyframes fadeIn {
   from {
@@ -262,6 +312,51 @@ a[href] {
 @keyframes fadeIn {
   from {
     opacity: 0; } }
+
+@-webkit-keyframes fadeOut {
+  to {
+    opacity: 0; } }
+
+@-moz-keyframes fadeOut {
+  to {
+    opacity: 0; } }
+
+@keyframes fadeOut {
+  to {
+    opacity: 0; } }
+
+@-webkit-keyframes moveFromTopFade {
+  from {
+    opacity: 0.3;
+    height: 0px;
+    -webkit-transform: translateY(-100%); } }
+
+@-moz-keyframes moveFromTopFade {
+  from {
+    opacity: 0.3;
+    height: 0px;
+    -moz-transform: translateY(-100%); } }
+
+@keyframes moveFromTopFade {
+  from {
+    opacity: 0.3;
+    height: 0px;
+    transform: translateY(-100%); } }
+
+@-webkit-keyframes moveToTopFade {
+  to {
+    opacity: 0.3;
+    height: 0px; } }
+
+@-moz-keyframes moveToTopFade {
+  to {
+    opacity: 0.3;
+    height: 0px; } }
+
+@keyframes moveToTopFade {
+  to {
+    opacity: 0.3;
+    height: 0px; } }
 
 @-webkit-keyframes moveToBottomFadeMonth {
   to {
