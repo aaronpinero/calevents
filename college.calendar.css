@@ -3,7 +3,7 @@
   --cal-color-text-light: #999999;
   --cal-color-border-dark: #999999;
   --cal-color-border-light: #e6e6e6;
-  --cal-color-day-number: #ce9459;
+  --cal-color-day-number: #002855;
   --cal-color-link: #418fde;
   --cal-color-link-hover: #002855; }
 
@@ -230,15 +230,26 @@ a[href] {
     #calevents-minimonth .day .day-number {
       border: 2px transparent solid;
       box-sizing: border-box; }
+    #calevents-minimonth .day .day-events {
+      line-height: 8px;
+      min-height: 12px;
+      padding: 0 4px; }
+      #calevents-minimonth .day .day-events span {
+        background-color: #66aee6;
+        border-radius: 50%;
+        display: inline-block;
+        height: 8px;
+        margin: 0 2px 4px 2px;
+        width: 8px; }
     #calevents-minimonth .day.other * {
       opacity: 0.25; }
     #calevents-minimonth .day.other .day-number {
       color: var(--cal-color-text-light); }
     #calevents-minimonth .day.today .day-number {
-      border: 2px rgba(190, 112, 33, 0.2) solid;
+      border: 2px #fcd450 solid;
       border-radius: 16px;
       margin: 0 auto;
-      max-width: 64px; }
+      max-width: 56px; }
 
 @-webkit-keyframes fadeIn {
   from {

@@ -111,13 +111,13 @@ Calendar.prototype.drawDay = function(day) {
   number.className = "day-number";
   number.innerText = number.textContent = day.format("D");
   //Events
-  //var events = document.createElement("div");
-  //events.className = "day-events";
-  //this.drawEvents(day, events);
+  var events = document.createElement("div");
+  events.className = "day-events";
+  self.drawEvents(day, events);
 
   outer.appendChild(name);
   outer.appendChild(number);
-  //outer.appendChild(events);
+  outer.appendChild(events);
   self.week.appendChild(outer);
 };
 Calendar.prototype.drawEvents = function(day, element) {
@@ -128,7 +128,6 @@ Calendar.prototype.drawEvents = function(day, element) {
       }
       return memo;
     }, []);
-
     todaysEvents.forEach(function(ev) {
       var evSpan = document.createElement("span");
       element.appendChild(evSpan);
@@ -185,7 +184,7 @@ Calendar.prototype.prevMonth = function() {
       var date = events.eq(x).find(".time").eq(0).attr("data-date-start"); // console.log('date: '+date);
       var html = events.eq(x).html(); // console.log('html: '+html)
       eventdata[x] = {};
-      eventdata[x].date = date;
+      eventdata[x].date = moment(date);
       eventdata[x].html = html;
       
       if (x === 0) { // first event date; dates are chronological, so this should be the earliest date
