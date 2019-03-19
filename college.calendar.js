@@ -1,6 +1,7 @@
 var today = moment();
 var mindate = false;
 var maxdate = false;
+var minimonth = false;
 
 function Calendar(selector,events) {
   this.selector = selector;
@@ -144,6 +145,103 @@ Calendar.prototype.getDayClass = function(day) {
   }
   return classes.join(' ');
 };
+Calendar.prototype.openDay = function(el) {
+  var details, arrow;
+  var dayNumber = +el.querySelectorAll(".day-number")[0].innerText || +el.querySelectorAll(".day-number")[0].textContent;
+  var day = this.current.clone().date(dayNumber);
+  if (!el.classList.contains("open")) {
+    var currentOpenedDay = document.querySelector(".day.open");
+    if (currentOpenedDay !== null) { currentOpenedDay.classList.remove("open"); }
+    el.classList.add("open");
+  }
+  var currentOpened = document.querySelector(".details");
+  //Check to see if there is an open detais box on the current row
+  if(currentOpened && currentOpened.parentNode === el.parentNode) {
+    details = currentOpened;
+    arrow = document.querySelector(".arrow");
+  }
+  else {
+    //Close the open events on differnt week row
+    //currentOpened && currentOpened.parentNode.removeChild(currentOpened);
+    if(currentOpened) {
+      currentOpened.addEventListener("webkitAnimationEnd", function() {
+        currentOpened.parentNode.removeChild(currentOpened);
+      });
+      currentOpened.addEventListener("oanimationend", function() {
+        currentOpened.parentNode.removeChild(currentOpened);
+      });
+      currentOpened.addEventListener("msAnimationEnd", function() {
+        currentOpened.parentNode.removeChild(currentOpened);
+      });
+      currentOpened.addEventListener("animationend", function() {
+        currentOpened.parentNode.removeChild(currentOpened);
+      });
+      currentOpened.className = "details out";
+    }
+    //Create the Details Container
+    details = document.createElement("div");
+    details.className = "details in";
+    //Create the arrow
+    var arrow = createElement("div", "arrow");
+    arrow.className = "arrow";
+    //Create the event wrapper
+    details.appendChild(arrow);
+    el.parentNode.appendChild(details);
+  }
+  var todaysEvents = this.events.reduce(function(memo, ev) {
+    if(ev.date.isSame(day, "day")) {
+      memo.push(ev);
+    }
+    return memo;
+  }, []);
+  this.renderEvents(todaysEvents,details);
+  arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + (el.offsetWidth / 2) + "px";
+};
+Calendar.prototype.renderEvents = function(events, ele) {
+  //Remove any events in the current details element
+  var currentWrapper = ele.querySelector(".events");
+  var wrapper = document.createElement("div");
+  wrapper.className = "events in" + (currentWrapper ? " new" : "");
+  
+  events.forEach(function(ev) {
+    var div = document.createElement("div");
+    div.className = "event";
+    div.innerHTML = ev.html;
+    wrapper.appendChild(div);
+  });
+
+    if(!events.length) {
+      var div = createElement('div', 'event empty');
+      var span = createElement('span', '', 'No Events');
+
+      div.appendChild(span);
+      wrapper.appendChild(div);
+    }
+
+    if(currentWrapper) {
+      currentWrapper.className = 'events out';
+      currentWrapper.addEventListener('webkitAnimationEnd', function() {
+        currentWrapper.parentNode.removeChild(currentWrapper);
+        ele.appendChild(wrapper);
+      });
+      currentWrapper.addEventListener('oanimationend', function() {
+        currentWrapper.parentNode.removeChild(currentWrapper);
+        ele.appendChild(wrapper);
+      });
+      currentWrapper.addEventListener('msAnimationEnd', function() {
+        currentWrapper.parentNode.removeChild(currentWrapper);
+        ele.appendChild(wrapper);
+      });
+      currentWrapper.addEventListener('animationend', function() {
+        currentWrapper.parentNode.removeChild(currentWrapper);
+        ele.appendChild(wrapper);
+      });
+    } else {
+      ele.appendChild(wrapper);
+    }
+  }
+
+
 Calendar.prototype.nextMonth = function() {
   if (this.current.isBefore(maxdate,"month")) {
     this.current.add(1,"months");
@@ -198,7 +296,7 @@ Calendar.prototype.prevMonth = function() {
     // create minimonth and toggle
     if (eventdata.length) {
       // minimonth
-      var minimonth = new Calendar("#calevents-minimonth",eventdata); // console.log(minimonth);
+      minimonth = new Calendar("#calevents-minimonth",eventdata); // console.log(minimonth);
       // toggle
       $(".view-calevents").addClass("view-style-cal").prepend("<div class=\"view-style-toggle\"><div class=\"view-style-list\">List</div><div class=\"view-style-cal on\">Calendar</div></div>");
       $(".view-calevents .view-style-toggle .view-style-list").click(function(){
