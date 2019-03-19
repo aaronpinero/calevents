@@ -1,5 +1,7 @@
 # Calendar of Events
 
+<a href="https://aaronpinero.github.io/calevents/college.calevents.html">Demo in Github Pages</a>
+
 A calendar display of events that takes UX cues from the Calendar app on iOS and the Google Calendar web app.
 
 The original inspiration for this comes from <a href="https://codepen.io/peanav">Codepen.io</a> along with <a href="https://codepen.io/aaronpinero/pen/qLWXpM">my own forked version</a>. 
