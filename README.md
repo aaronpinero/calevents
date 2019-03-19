@@ -15,3 +15,8 @@ The original calendar widget from Codepen will be enhanced in the following ways
 - fallback for no CSS
 - event data is scraped from HTML (and not supplied as JSON) to create the array of event data; this allows the no-JavaScript fallback
 - date-range limited based on available event data
+- toggle between calendar view and list view
+
+## Design
+
+The .sketch file of the calendar design is included in the repository.
