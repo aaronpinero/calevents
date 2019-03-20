@@ -131,7 +131,15 @@ Calendar.prototype.drawEvents = function(day, element) {
     }, []);
     todaysEvents.forEach(function(ev) {
       var event = document.createElement("div");
-      event.innerHTML = ev.html
+      event.className = (ev.allday === true) ? "item allday" : "item"; 
+      var time = document.createElement("span");
+      time.className = "time";
+      time.innerText = time.textContent = ev.time;
+      var title = document.createElement("span");
+      title.className = "title";
+      title.innerText = title.textContent = ev.title;
+      event.appendChild(time);
+      event.appendChild(title);
       element.appendChild(event);
     });
   }
@@ -150,6 +158,7 @@ Calendar.prototype.openDay = function(el) {
   var details, arrow;
   var dayNumber = +el.querySelectorAll(".day-number")[0].innerText || +el.querySelectorAll(".day-number")[0].textContent;
   var day = this.current.clone().date(dayNumber);
+  var weekday = day.format("d");
   if (el.classList.contains("open")) {
     // if we've clicked on the open day, close it
     el.classList.remove("open");
@@ -215,6 +224,7 @@ Calendar.prototype.openDay = function(el) {
       return memo;
     }, []);
     this.renderEvents(todaysEvents,details);
+    details.className = "details in details-" + weekday;
     arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + (el.offsetWidth / 2) + "px";
   }
 };
@@ -283,7 +293,7 @@ Calendar.prototype.prevMonth = function() {
     var alldaytext = "(All day)";
     $(".view-calevents .time .date-display-single").each(function(){
       if ($(this).text() == alldaytext) {
-        $(this).parent().parent().addClass("allday");
+        $(this).parent().addClass("allday").parent().addClass("allday");
       }
     });
     
@@ -299,10 +309,16 @@ Calendar.prototype.prevMonth = function() {
     var x;
     for (x=0;x<events.length;x++) {
       var date = events.eq(x).find(".time").eq(0).attr("data-date-start"); // console.log('date: '+date);
+      var title = events.eq(x).find("h4 a").eq(0).text(); console.log('title: '+title);
+      var time = (events.eq(x).find(".date-display-start").length > 0) ? events.eq(x).find(".date-display-start").eq(0).text() : events.eq(x).find(".date-display-single").eq(0).text(); console.log('time: '+time);
       var html = events.eq(x).html(); // console.log('html: '+html)
+      var allday = (events.eq(x).hasClass("allday")) ? true : false; console.log('allday: '+ allday);
       eventdata[x] = {};
       eventdata[x].date = moment(date);
+      eventdata[x].title = title;
+      eventdata[x].time = time;
       eventdata[x].html = html;
+      eventdata[x].allday = allday;
       
       if (x === 0) { // first event date; dates are chronological, so this should be the earliest date
         mindate = date;

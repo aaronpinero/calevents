@@ -301,7 +301,7 @@ a[href] {
       line-height:8px;
       min-height:12px;
       padding:0 4px;
-      > div {
+      .item {
         @media (max-width:$break-desktop - 1px) {
           background-color:$blue-292;
           border-radius:50%;
@@ -310,28 +310,35 @@ a[href] {
           height:8px;
           margin:0 2px 4px 2px;
           overflow:hidden;
+          vertical-align:top;
           width:8px;
         }
         @media (min-width:$break-desktop) {
-          height:12px;
+          font-size:11px;
+          height:14px;
+          line-height:14px;
           overflow:hidden;
           text-align:left;
           text-overflow:clip;
-          margin:0 5px 4px 5px;
+          margin:4px 5px 0 5px;
           width:calc(100% - 10px);
-          * {
-            display:inline;
-            font-size:10px;
-            line-height:12px;
+          .time {
+            color:var(--cal-color-text-light);
+            margin-right:3px;
           }
-          .date-display-range {
-            font-size:0;
-            .date-display-end {
-              display:none;
-            }
-            .date-display-start {
-              font-size:10px;
-              margin-right:2px;
+          .title {
+            color:mix($blue,$blue-dark);
+          }
+          &.allday {
+            background-color:rgba(invert($blue),0.1);
+            border:1px rgba(invert($blue),0.5) solid;
+            border-radius:2px;
+            height:18px;
+            margin:4px 1px 0 1px;
+            padding:2px 4px;
+            width:calc(100% - 2px);
+            .title {
+              color:invert($blue);
             }
           }
         }

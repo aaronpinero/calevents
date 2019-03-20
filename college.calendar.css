@@ -238,7 +238,7 @@ a[href] {
       min-height: 12px;
       padding: 0 4px; }
       @media (max-width: 1023px) {
-        #calevents-minimonth .day .day-events > div {
+        #calevents-minimonth .day .day-events .item {
           background-color: #66aee6;
           border-radius: 50%;
           display: inline-block;
@@ -246,26 +246,33 @@ a[href] {
           height: 8px;
           margin: 0 2px 4px 2px;
           overflow: hidden;
+          vertical-align: top;
           width: 8px; } }
       @media (min-width: 1024px) {
-        #calevents-minimonth .day .day-events > div {
-          height: 12px;
+        #calevents-minimonth .day .day-events .item {
+          font-size: 11px;
+          height: 14px;
+          line-height: 14px;
           overflow: hidden;
           text-align: left;
           text-overflow: clip;
-          margin: 0 5px 4px 5px;
+          margin: 4px 5px 0 5px;
           width: calc(100% - 10px); }
-          #calevents-minimonth .day .day-events > div * {
-            display: inline;
-            font-size: 10px;
-            line-height: 12px; }
-          #calevents-minimonth .day .day-events > div .date-display-range {
-            font-size: 0; }
-            #calevents-minimonth .day .day-events > div .date-display-range .date-display-end {
-              display: none; }
-            #calevents-minimonth .day .day-events > div .date-display-range .date-display-start {
-              font-size: 10px;
-              margin-right: 2px; } }
+          #calevents-minimonth .day .day-events .item .time {
+            color: var(--cal-color-text-light);
+            margin-right: 3px; }
+          #calevents-minimonth .day .day-events .item .title {
+            color: #215c9a; }
+          #calevents-minimonth .day .day-events .item.allday {
+            background-color: rgba(190, 112, 33, 0.1);
+            border: 1px rgba(190, 112, 33, 0.5) solid;
+            border-radius: 2px;
+            height: 18px;
+            margin: 4px 1px 0 1px;
+            padding: 2px 4px;
+            width: calc(100% - 2px); }
+            #calevents-minimonth .day .day-events .item.allday .title {
+              color: #be7021; } }
     #calevents-minimonth .day.other * {
       opacity: 0.25; }
     #calevents-minimonth .day.other .day-number {
