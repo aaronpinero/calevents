@@ -100,12 +100,13 @@ Calendar.prototype.drawDay = function(day) {
   //Outer Day
   var outer = document.createElement("div");
   outer.className = self.getDayClass(day);
-  outer.addEventListener('click', function(e) {
-    console.log(e);
-    if (e.target.tagName != "A") {
-      self.openDay(this);
-    }
-  });
+  if(day.month() === self.current.month()) {
+    outer.addEventListener('click', function(e) {
+      if (e.target.tagName != "A") {
+        self.openDay(this);
+      }
+    });
+  }
   //Day Name
   var name = document.createElement("div");
   name.className = "day-name";
@@ -179,7 +180,8 @@ Calendar.prototype.openDay = function(el) {
       currentOpened.addEventListener("animationend", function() {
         currentOpened.parentNode.removeChild(currentOpened);
       });
-      currentOpened.className = "details out";
+      currentOpened.classList.remove("in");
+      currentOpened.classList.add("out");
     }
   }
   else {
@@ -208,7 +210,8 @@ Calendar.prototype.openDay = function(el) {
         currentOpened.addEventListener("animationend", function() {
           currentOpened.parentNode.removeChild(currentOpened);
         });
-        currentOpened.className = "details out";
+        currentOpened.classList.remove("in");
+        currentOpened.classList.add("out");
       }
       //Create the Details Container
       details = document.createElement("div");
@@ -334,7 +337,7 @@ Calendar.prototype.prevMonth = function() {
     // create minimonth and toggle
     if (eventdata.length) {
       // minimonth
-      minimonth = new Calendar("#calevents-minimonth",eventdata); // console.log(minimonth);
+      minimonth = new Calendar("#calevents-minimonth",eventdata);
       // toggle
       $(".view-calevents").addClass("view-style-cal").prepend("<div class=\"view-style-toggle\"><div class=\"view-style-list\">List</div><div class=\"view-style-cal on\">Calendar</div></div>");
       $(".view-calevents .view-style-toggle .view-style-list").click(function(){

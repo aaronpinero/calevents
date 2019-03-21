@@ -4,6 +4,7 @@ $blue-292:#66aee6;
 $gold:#fcd450;
 $break-desktop:1024px;
 $detail-height:256px;
+$detail-height-large:320px;
 :root {
   --cal-color-shaded:#f2f2f2;
   --cal-color-text-light:#999999;
@@ -277,6 +278,7 @@ a[href] {
   .week {
     display:flex;
     flex-wrap:wrap;
+    position:relative;
     @media (min-width:$break-desktop) {
       &:not(:last-child) {
         border-bottom:2px var(--cal-color-border-light) solid;
@@ -364,6 +366,7 @@ a[href] {
       }
     }
     &.other {
+      cursor:default;
       * {
         opacity:0.25;
       }
@@ -445,6 +448,75 @@ a[href] {
       }
       .event + .event {
         margin-top:16px;
+      }
+    }
+    @media (min-width:$break-desktop) {
+      background-color:white;
+      border:2px $gold solid;
+      border-radius:8px;
+      box-shadow:0 0 8px rgba(0,0,0,0.2);
+      height:auto;
+      position:absolute;
+      top:56px;
+      transition:left 0.5s;
+      width:calc(100% / 3);
+      height:$detail-height-large;
+      left:0;
+      .events {
+        height:$detail-height-large;
+      }
+      .arrow {
+        display:none;
+      }
+      &:before,
+      &:after { // arrow at top of block
+		    border:solid 10px transparent;
+		    border-top:0;
+		    border-bottom-color:#fff;
+		    content:"";
+		    display:block;
+		    height:0; 
+		    left:50%;
+		    margin-left:-10px;
+		    overflow:hidden;
+		    position:absolute;
+		    top:-6px;
+        transition:left 0.5s;
+		    z-index:2;
+		    width:0;
+		  }
+		  &:before {
+  		  top:-10px;
+  		  z-index:1;
+  		  border-bottom-color:$gold;
+      }
+      &.details-0 {
+        &:before,
+        &:after {
+          left:calc(100% * 3 / 14);
+        }
+      }
+      &.details-1 {
+        left:calc(100% / 7 * 1.5 - 100% / 6);
+      }
+      &.details-2 {
+        left:calc(100% / 7 * 2.5 - 100% / 6);
+      }
+      &.details-3 {
+        left:calc(100% / 7 * 3.5 - 100% / 6);
+      }
+      &.details-4 {
+        left:calc(100% / 7 * 4.5 - 100% / 6);
+      }
+      &.details-5 {
+        left:calc(100% / 7 * 5.5 - 100% / 6);
+      }
+      &.details-6 {
+        left:calc(100% - 100% / 3);
+        &:before,
+        &:after {
+          left:calc(100% - 100% * 3 / 14);
+        }
       }
     }
   }
