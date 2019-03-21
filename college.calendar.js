@@ -100,8 +100,11 @@ Calendar.prototype.drawDay = function(day) {
   //Outer Day
   var outer = document.createElement("div");
   outer.className = self.getDayClass(day);
-  outer.addEventListener('click', function() {
-    self.openDay(this);
+  outer.addEventListener('click', function(e) {
+    console.log(e);
+    if (e.target.tagName != "A") {
+      self.openDay(this);
+    }
   });
   //Day Name
   var name = document.createElement("div");
@@ -137,7 +140,7 @@ Calendar.prototype.drawEvents = function(day, element) {
       time.innerText = time.textContent = ev.time;
       var title = document.createElement("span");
       title.className = "title";
-      title.innerText = title.textContent = ev.title;
+      title.innerHTML = ev.title;
       event.appendChild(time);
       event.appendChild(title);
       element.appendChild(event);
@@ -308,11 +311,11 @@ Calendar.prototype.prevMonth = function() {
     var events = $(".calevent");
     var x;
     for (x=0;x<events.length;x++) {
-      var date = events.eq(x).find(".time").eq(0).attr("data-date-start"); // console.log('date: '+date);
-      var title = events.eq(x).find("h4 a").eq(0).text(); console.log('title: '+title);
-      var time = (events.eq(x).find(".date-display-start").length > 0) ? events.eq(x).find(".date-display-start").eq(0).text() : events.eq(x).find(".date-display-single").eq(0).text(); console.log('time: '+time);
-      var html = events.eq(x).html(); // console.log('html: '+html)
-      var allday = (events.eq(x).hasClass("allday")) ? true : false; console.log('allday: '+ allday);
+      var date = events.eq(x).find(".time").eq(0).attr("data-date-start");
+      var title = events.eq(x).find("h4").eq(0).html();
+      var time = (events.eq(x).find(".date-display-start").length > 0) ? events.eq(x).find(".date-display-start").eq(0).text() : events.eq(x).find(".date-display-single").eq(0).text();
+      var html = events.eq(x).html();
+      var allday = (events.eq(x).hasClass("allday")) ? true : false;
       eventdata[x] = {};
       eventdata[x].date = moment(date);
       eventdata[x].title = title;

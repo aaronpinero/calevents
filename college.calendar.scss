@@ -29,7 +29,7 @@ $detail-height:256px;
   font-size:12px;
   font-weight:normal;
   letter-spacing:0.05em;
-  line-height:20px;
+  line-height:16px;
   text-transform:uppercase;
 }
 %caldaynum {
@@ -41,7 +41,7 @@ $detail-height:256px;
 %caltime {
   color:var(--cal-color-text-light);
   font-size:14px;
-  line-height:20px;
+  line-height:16px;
 }
 %caleventname {
   font-size:18px;
@@ -65,6 +65,9 @@ a[href] {
   }
 }
 .view-calevents {
+  -webkit-animation:fadeIn 2s ease both;
+  -moz-animation:fadeIn 2s ease both;
+  animation:fadeIn 2s ease both;
   padding-bottom:16px;
   position:relative;
   &.view-style-cal {
@@ -169,6 +172,9 @@ a[href] {
     height:40px;
     overflow:hidden;
     text-indent:41px;
+    -webkit-transition:background-color 500ms, box-shadow 500ms;
+    -moz-transition:background-color 500ms, box-shadow 500ms;
+    transition:background-color 500ms, box-shadow 500ms;
     white-space:nowrap;
     width:40px;
     &.on {
@@ -291,11 +297,23 @@ a[href] {
     }
     .day-name {
       @extend %caldayname;
+      -webkit-transition:color 250ms;
+      -moz-transition:color 250ms;
+      transition:color 250ms;
     }
     .day-number {
       @extend %caldaynum;
       border:2px transparent solid;
       box-sizing:border-box;
+      -webkit-transition:color 250ms;
+      -moz-transition:color 250ms;
+      transition:color 250ms;
+    }
+    &:hover {
+      .day-name,
+      .day-number {
+        color:$blue-292;
+      }
     }
     .day-events {
       line-height:8px;
@@ -326,19 +344,20 @@ a[href] {
             color:var(--cal-color-text-light);
             margin-right:3px;
           }
-          .title {
-            color:mix($blue,$blue-dark);
+          .title a {
+            text-decoration:none;
           }
           &.allday {
             background-color:rgba(invert($blue),0.1);
             border:1px rgba(invert($blue),0.5) solid;
             border-radius:2px;
-            height:18px;
+            height:20px;
             margin:4px 1px 0 1px;
             padding:2px 4px;
             width:calc(100% - 2px);
-            .title {
+            .time {
               color:invert($blue);
+              display:none;
             }
           }
         }
