@@ -4,6 +4,7 @@ $blue-292:#66aee6;
 $gold:#fcd450;
 $break-desktop:1024px;
 $detail-height:256px;
+$detail-height-large:320px;
 :root {
   --cal-color-shaded:#f2f2f2;
   --cal-color-text-light:#999999;
@@ -29,7 +30,7 @@ $detail-height:256px;
   font-size:12px;
   font-weight:normal;
   letter-spacing:0.05em;
-  line-height:20px;
+  line-height:16px;
   text-transform:uppercase;
 }
 %caldaynum {
@@ -41,7 +42,7 @@ $detail-height:256px;
 %caltime {
   color:var(--cal-color-text-light);
   font-size:14px;
-  line-height:20px;
+  line-height:16px;
 }
 %caleventname {
   font-size:18px;
@@ -65,6 +66,9 @@ a[href] {
   }
 }
 .view-calevents {
+  -webkit-animation:fadeIn 2s ease both;
+  -moz-animation:fadeIn 2s ease both;
+  animation:fadeIn 2s ease both;
   padding-bottom:16px;
   position:relative;
   &.view-style-cal {
@@ -169,6 +173,9 @@ a[href] {
     height:40px;
     overflow:hidden;
     text-indent:41px;
+    -webkit-transition:background-color 500ms, box-shadow 500ms;
+    -moz-transition:background-color 500ms, box-shadow 500ms;
+    transition:background-color 500ms, box-shadow 500ms;
     white-space:nowrap;
     width:40px;
     &.on {
@@ -271,6 +278,7 @@ a[href] {
   .week {
     display:flex;
     flex-wrap:wrap;
+    position:relative;
     @media (min-width:$break-desktop) {
       &:not(:last-child) {
         border-bottom:2px var(--cal-color-border-light) solid;
@@ -279,6 +287,7 @@ a[href] {
   }
   .day {
     box-sizing:border-box;
+    cursor:pointer;
     flex:0 1 calc(100% / 7);
     padding-top:8px;
     text-align:center;
@@ -290,26 +299,74 @@ a[href] {
     }
     .day-name {
       @extend %caldayname;
+      -webkit-transition:color 250ms;
+      -moz-transition:color 250ms;
+      transition:color 250ms;
     }
     .day-number {
       @extend %caldaynum;
       border:2px transparent solid;
       box-sizing:border-box;
+      -webkit-transition:color 250ms;
+      -moz-transition:color 250ms;
+      transition:color 250ms;
+    }
+    &:hover {
+      .day-name,
+      .day-number {
+        color:$blue-292;
+      }
     }
     .day-events {
       line-height:8px;
       min-height:12px;
       padding:0 4px;
-      span {
-        background-color:$blue-292;
-        border-radius:50%;
-        display:inline-block;
-        height:8px;
-        margin:0 2px 4px 2px;
-        width:8px;
+      .item {
+        @media (max-width:$break-desktop - 1px) {
+          background-color:$blue-292;
+          border-radius:50%;
+          display:inline-block;
+          font-size:0;
+          height:8px;
+          margin:0 2px 4px 2px;
+          overflow:hidden;
+          vertical-align:top;
+          width:8px;
+        }
+        @media (min-width:$break-desktop) {
+          font-size:11px;
+          height:14px;
+          line-height:14px;
+          overflow:hidden;
+          text-align:left;
+          text-overflow:clip;
+          margin:4px 5px 0 5px;
+          width:calc(100% - 10px);
+          .time {
+            color:var(--cal-color-text-light);
+            margin-right:3px;
+          }
+          .title a {
+            text-decoration:none;
+          }
+          &.allday {
+            background-color:rgba(invert($blue),0.1);
+            border:1px rgba(invert($blue),0.5) solid;
+            border-radius:2px;
+            height:20px;
+            margin:4px 1px 0 1px;
+            padding:2px 4px;
+            width:calc(100% - 2px);
+            .time {
+              color:invert($blue);
+              display:none;
+            }
+          }
+        }
       }
     }
     &.other {
+      cursor:default;
       * {
         opacity:0.25;
       }
@@ -391,6 +448,75 @@ a[href] {
       }
       .event + .event {
         margin-top:16px;
+      }
+    }
+    @media (min-width:$break-desktop) {
+      background-color:white;
+      border:2px $gold solid;
+      border-radius:8px;
+      box-shadow:0 0 8px rgba(0,0,0,0.2);
+      height:auto;
+      position:absolute;
+      top:56px;
+      transition:left 0.5s;
+      width:calc(100% / 3);
+      height:$detail-height-large;
+      left:0;
+      .events {
+        height:$detail-height-large;
+      }
+      .arrow {
+        display:none;
+      }
+      &:before,
+      &:after { // arrow at top of block
+		    border:solid 10px transparent;
+		    border-top:0;
+		    border-bottom-color:#fff;
+		    content:"";
+		    display:block;
+		    height:0; 
+		    left:50%;
+		    margin-left:-10px;
+		    overflow:hidden;
+		    position:absolute;
+		    top:-6px;
+        transition:left 0.5s;
+		    z-index:2;
+		    width:0;
+		  }
+		  &:before {
+  		  top:-10px;
+  		  z-index:1;
+  		  border-bottom-color:$gold;
+      }
+      &.details-0 {
+        &:before,
+        &:after {
+          left:calc(100% * 3 / 14);
+        }
+      }
+      &.details-1 {
+        left:calc(100% / 7 * 1.5 - 100% / 6);
+      }
+      &.details-2 {
+        left:calc(100% / 7 * 2.5 - 100% / 6);
+      }
+      &.details-3 {
+        left:calc(100% / 7 * 3.5 - 100% / 6);
+      }
+      &.details-4 {
+        left:calc(100% / 7 * 4.5 - 100% / 6);
+      }
+      &.details-5 {
+        left:calc(100% / 7 * 5.5 - 100% / 6);
+      }
+      &.details-6 {
+        left:calc(100% - 100% / 3);
+        &:before,
+        &:after {
+          left:calc(100% - 100% * 3 / 14);
+        }
       }
     }
   }

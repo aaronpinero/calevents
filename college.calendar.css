@@ -23,7 +23,7 @@
   font-size: 12px;
   font-weight: normal;
   letter-spacing: 0.05em;
-  line-height: 20px;
+  line-height: 16px;
   text-transform: uppercase; }
 
 .view-calevents h3 .day, #calevents-minimonth .day .day-number {
@@ -35,7 +35,7 @@
 .view-calevents .calevent .time, #calevents-minimonth .details .events .event .time {
   color: var(--cal-color-text-light);
   font-size: 14px;
-  line-height: 20px; }
+  line-height: 16px; }
 
 .view-calevents .calevent h4, #calevents-minimonth .details .events .event h4 {
   font-size: 18px;
@@ -58,6 +58,9 @@ a[href] {
     color: var(--cal-color-link-hover); }
 
 .view-calevents {
+  -webkit-animation: fadeIn 2s ease both;
+  -moz-animation: fadeIn 2s ease both;
+  animation: fadeIn 2s ease both;
   padding-bottom: 16px;
   position: relative; }
   .view-calevents.view-style-cal .view-content {
@@ -136,6 +139,9 @@ a[href] {
     height: 40px;
     overflow: hidden;
     text-indent: 41px;
+    -webkit-transition: background-color 500ms, box-shadow 500ms;
+    -moz-transition: background-color 500ms, box-shadow 500ms;
+    transition: background-color 500ms, box-shadow 500ms;
     white-space: nowrap;
     width: 40px; }
     .view-style-toggle > div.on {
@@ -215,12 +221,14 @@ a[href] {
       opacity: 1; }
   #calevents-minimonth .week {
     display: flex;
-    flex-wrap: wrap; }
+    flex-wrap: wrap;
+    position: relative; }
     @media (min-width: 1024px) {
       #calevents-minimonth .week:not(:last-child) {
         border-bottom: 2px var(--cal-color-border-light) solid; } }
   #calevents-minimonth .day {
     box-sizing: border-box;
+    cursor: pointer;
     flex: 0 1 calc(100% / 7);
     padding-top: 8px;
     text-align: center; }
@@ -229,24 +237,66 @@ a[href] {
         min-height: 144px; }
         #calevents-minimonth .day:not(:first-child) {
           border-left: 2px var(--cal-color-border-light) solid; } }
+    #calevents-minimonth .day .day-name {
+      -webkit-transition: color 250ms;
+      -moz-transition: color 250ms;
+      transition: color 250ms; }
     #calevents-minimonth .day .day-number {
       border: 2px transparent solid;
-      box-sizing: border-box; }
+      box-sizing: border-box;
+      -webkit-transition: color 250ms;
+      -moz-transition: color 250ms;
+      transition: color 250ms; }
+    #calevents-minimonth .day:hover .day-name,
+    #calevents-minimonth .day:hover .day-number {
+      color: #66aee6; }
     #calevents-minimonth .day .day-events {
       line-height: 8px;
       min-height: 12px;
       padding: 0 4px; }
-      #calevents-minimonth .day .day-events span {
-        background-color: #66aee6;
-        border-radius: 50%;
-        display: inline-block;
-        height: 8px;
-        margin: 0 2px 4px 2px;
-        width: 8px; }
-    #calevents-minimonth .day.other * {
-      opacity: 0.25; }
-    #calevents-minimonth .day.other .day-number {
-      color: var(--cal-color-text-light); }
+      @media (max-width: 1023px) {
+        #calevents-minimonth .day .day-events .item {
+          background-color: #66aee6;
+          border-radius: 50%;
+          display: inline-block;
+          font-size: 0;
+          height: 8px;
+          margin: 0 2px 4px 2px;
+          overflow: hidden;
+          vertical-align: top;
+          width: 8px; } }
+      @media (min-width: 1024px) {
+        #calevents-minimonth .day .day-events .item {
+          font-size: 11px;
+          height: 14px;
+          line-height: 14px;
+          overflow: hidden;
+          text-align: left;
+          text-overflow: clip;
+          margin: 4px 5px 0 5px;
+          width: calc(100% - 10px); }
+          #calevents-minimonth .day .day-events .item .time {
+            color: var(--cal-color-text-light);
+            margin-right: 3px; }
+          #calevents-minimonth .day .day-events .item .title a {
+            text-decoration: none; }
+          #calevents-minimonth .day .day-events .item.allday {
+            background-color: rgba(190, 112, 33, 0.1);
+            border: 1px rgba(190, 112, 33, 0.5) solid;
+            border-radius: 2px;
+            height: 20px;
+            margin: 4px 1px 0 1px;
+            padding: 2px 4px;
+            width: calc(100% - 2px); }
+            #calevents-minimonth .day .day-events .item.allday .time {
+              color: #be7021;
+              display: none; } }
+    #calevents-minimonth .day.other {
+      cursor: default; }
+      #calevents-minimonth .day.other * {
+        opacity: 0.25; }
+      #calevents-minimonth .day.other .day-number {
+        color: var(--cal-color-text-light); }
     #calevents-minimonth .day.today .day-number {
       border: 2px #fcd450 solid;
       border-radius: 16px;
@@ -302,6 +352,61 @@ a[href] {
         color: var(--cal-color-text-light); }
       #calevents-minimonth .details .events .event + .event {
         margin-top: 16px; }
+    @media (min-width: 1024px) {
+      #calevents-minimonth .details {
+        background-color: white;
+        border: 2px #fcd450 solid;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        height: auto;
+        position: absolute;
+        top: 56px;
+        transition: left 0.5s;
+        width: calc(100% / 3);
+        height: 320px;
+        left: 0; }
+        #calevents-minimonth .details .events {
+          height: 320px; }
+        #calevents-minimonth .details .arrow {
+          display: none; }
+        #calevents-minimonth .details:before,
+        #calevents-minimonth .details:after {
+          border: solid 10px transparent;
+          border-top: 0;
+          border-bottom-color: #fff;
+          content: "";
+          display: block;
+          height: 0;
+          left: 50%;
+          margin-left: -10px;
+          overflow: hidden;
+          position: absolute;
+          top: -6px;
+          transition: left 0.5s;
+          z-index: 2;
+          width: 0; }
+        #calevents-minimonth .details:before {
+          top: -10px;
+          z-index: 1;
+          border-bottom-color: #fcd450; }
+        #calevents-minimonth .details.details-0:before,
+        #calevents-minimonth .details.details-0:after {
+          left: calc(100% * 3 / 14); }
+        #calevents-minimonth .details.details-1 {
+          left: calc(100% / 7 * 1.5 - 100% / 6); }
+        #calevents-minimonth .details.details-2 {
+          left: calc(100% / 7 * 2.5 - 100% / 6); }
+        #calevents-minimonth .details.details-3 {
+          left: calc(100% / 7 * 3.5 - 100% / 6); }
+        #calevents-minimonth .details.details-4 {
+          left: calc(100% / 7 * 4.5 - 100% / 6); }
+        #calevents-minimonth .details.details-5 {
+          left: calc(100% / 7 * 5.5 - 100% / 6); }
+        #calevents-minimonth .details.details-6 {
+          left: calc(100% - 100% / 3); }
+          #calevents-minimonth .details.details-6:before,
+          #calevents-minimonth .details.details-6:after {
+            left: calc(100% - 100% * 3 / 14); } }
 
 @-webkit-keyframes fadeIn {
   from {

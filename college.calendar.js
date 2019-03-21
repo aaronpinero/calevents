@@ -100,9 +100,13 @@ Calendar.prototype.drawDay = function(day) {
   //Outer Day
   var outer = document.createElement("div");
   outer.className = self.getDayClass(day);
-  outer.addEventListener('click', function() {
-    self.openDay(this);
-  });
+  if(day.month() === self.current.month()) {
+    outer.addEventListener('click', function(e) {
+      if (e.target.tagName != "A") {
+        self.openDay(this);
+      }
+    });
+  }
   //Day Name
   var name = document.createElement("div");
   name.className = "day-name";
@@ -130,8 +134,17 @@ Calendar.prototype.drawEvents = function(day, element) {
       return memo;
     }, []);
     todaysEvents.forEach(function(ev) {
-      var evSpan = document.createElement("span");
-      element.appendChild(evSpan);
+      var event = document.createElement("div");
+      event.className = (ev.allday === true) ? "item allday" : "item"; 
+      var time = document.createElement("span");
+      time.className = "time";
+      time.innerText = time.textContent = ev.time;
+      var title = document.createElement("span");
+      title.className = "title";
+      title.innerHTML = ev.title;
+      event.appendChild(time);
+      event.appendChild(title);
+      element.appendChild(event);
     });
   }
 };
@@ -149,6 +162,7 @@ Calendar.prototype.openDay = function(el) {
   var details, arrow;
   var dayNumber = +el.querySelectorAll(".day-number")[0].innerText || +el.querySelectorAll(".day-number")[0].textContent;
   var day = this.current.clone().date(dayNumber);
+  var weekday = day.format("d");
   if (el.classList.contains("open")) {
     // if we've clicked on the open day, close it
     el.classList.remove("open");
@@ -166,7 +180,8 @@ Calendar.prototype.openDay = function(el) {
       currentOpened.addEventListener("animationend", function() {
         currentOpened.parentNode.removeChild(currentOpened);
       });
-      currentOpened.className = "details out";
+      currentOpened.classList.remove("in");
+      currentOpened.classList.add("out");
     }
   }
   else {
@@ -195,7 +210,8 @@ Calendar.prototype.openDay = function(el) {
         currentOpened.addEventListener("animationend", function() {
           currentOpened.parentNode.removeChild(currentOpened);
         });
-        currentOpened.className = "details out";
+        currentOpened.classList.remove("in");
+        currentOpened.classList.add("out");
       }
       //Create the Details Container
       details = document.createElement("div");
@@ -214,6 +230,7 @@ Calendar.prototype.openDay = function(el) {
       return memo;
     }, []);
     this.renderEvents(todaysEvents,details);
+    details.className = "details in details-" + weekday;
     arrow.style.left = el.offsetLeft - el.parentNode.offsetLeft + (el.offsetWidth / 2) + "px";
   }
 };
@@ -282,7 +299,7 @@ Calendar.prototype.prevMonth = function() {
     var alldaytext = "(All day)";
     $(".view-calevents .time .date-display-single").each(function(){
       if ($(this).text() == alldaytext) {
-        $(this).parent().parent().addClass("allday");
+        $(this).parent().addClass("allday").parent().addClass("allday");
       }
     });
     
@@ -297,11 +314,17 @@ Calendar.prototype.prevMonth = function() {
     var events = $(".calevent");
     var x;
     for (x=0;x<events.length;x++) {
-      var date = events.eq(x).find(".time").eq(0).attr("data-date-start"); // console.log('date: '+date);
-      var html = events.eq(x).html(); // console.log('html: '+html)
+      var date = events.eq(x).find(".time").eq(0).attr("data-date-start");
+      var title = events.eq(x).find("h4").eq(0).html();
+      var time = (events.eq(x).find(".date-display-start").length > 0) ? events.eq(x).find(".date-display-start").eq(0).text() : events.eq(x).find(".date-display-single").eq(0).text();
+      var html = events.eq(x).html();
+      var allday = (events.eq(x).hasClass("allday")) ? true : false;
       eventdata[x] = {};
       eventdata[x].date = moment(date);
+      eventdata[x].title = title;
+      eventdata[x].time = time;
       eventdata[x].html = html;
+      eventdata[x].allday = allday;
       
       if (x === 0) { // first event date; dates are chronological, so this should be the earliest date
         mindate = date;
@@ -314,7 +337,7 @@ Calendar.prototype.prevMonth = function() {
     // create minimonth and toggle
     if (eventdata.length) {
       // minimonth
-      minimonth = new Calendar("#calevents-minimonth",eventdata); // console.log(minimonth);
+      minimonth = new Calendar("#calevents-minimonth",eventdata);
       // toggle
       $(".view-calevents").addClass("view-style-cal").prepend("<div class=\"view-style-toggle\"><div class=\"view-style-list\">List</div><div class=\"view-style-cal on\">Calendar</div></div>");
       $(".view-calevents .view-style-toggle .view-style-list").click(function(){
