@@ -18,6 +18,7 @@ The original widget will be enhanced in the following ways by this project:
 - event data is scraped from HTML (and not supplied as JSON) to create the array of event data; this allows the no-JavaScript fallback
 - date-range limited based on available event data
 - toggle between calendar view and list view
+- handle the display of events that span multiple days
 
 ## Rationale
 
@@ -31,7 +32,7 @@ The Javascript that enables the calendar view scrapes the page's HTML for event 
 
 ```html
 <div class="calevent">
-  <div class="time" data-date-start="[ISO 8601 event date]">
+  <div class="time" data-date-start="[ISO 8601 event date]" data-date-end="[ISO 8601 event date]">
     <span class="date-display-single"><span class="date-display-range"><span class="date-display-start">[event start time]</span> to <span class="date-display-end">[event end time]</span></span></span>
   </div>
   <h4><a href="[event link]">[event title]</a></h4>
@@ -42,7 +43,7 @@ For all day events, the structure is:
 
 ```html
 <div class="calevent">
-  <div class="time" data-date-start="[ISO 8601 event date]">
+  <div class="time" data-date-start="[ISO 8601 event date]" data-date-end="[ISO 8601 event date]">
     <span class="date-display-single">(All day)</span>
   </div>
   <h4><a href="[event link]">[event title]</a></h4>
