@@ -320,7 +320,7 @@ a[href] {
     .day-events {
       line-height:8px;
       min-height:12px;
-      padding:0 4px;
+      padding:0 4px 4px 4px;
       .item {
         @media (max-width:$break-desktop - 1px) {
           background-color:$blue-292;
@@ -441,6 +441,19 @@ a[href] {
         }
         .time {
           @extend %caltime;
+          &.allday .date-display-single {
+            background-color:rgba(invert($blue),0.1);
+            border:1px rgba(invert($blue),0.5) solid;
+            border-radius:2px;
+            color:invert($blue);
+            display:inline-block;
+            font-size:10px;
+            font-weight:bold;
+            letter-spacing:0.05em;
+            line-height:12px;
+            padding:3px 6px;
+            text-transform:uppercase;
+          }
         }
         h4 {
           @extend %caleventname;

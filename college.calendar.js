@@ -46,7 +46,7 @@ Calendar.prototype.drawMonth = function() {
       self.month.className = "month";
       self.backFill();
       self.currentMonth();
-      self.fowardFill();
+      self.forwardFill();
       self.el.appendChild(self.month);
       window.setTimeout(function() {
         self.month.className = "month in " + (self.next ? "next" : "prev");
@@ -59,7 +59,7 @@ Calendar.prototype.drawMonth = function() {
     self.el.appendChild(self.month);
     self.backFill();
     self.currentMonth();
-    self.fowardFill();
+    self.forwardFill();
     self.month.className = "month new";
   }
 };
@@ -72,7 +72,7 @@ Calendar.prototype.backFill = function() {
     this.drawDay(clone.add(1,"days"));
   }
 };
-Calendar.prototype.fowardFill = function() {
+Calendar.prototype.forwardFill = function() {
   var clone = this.current.clone().add(1,"months").subtract(1,"days");
   var dayOfWeek = clone.day();
   if(dayOfWeek === 6) { return; }
@@ -128,7 +128,7 @@ Calendar.prototype.drawDay = function(day) {
 Calendar.prototype.drawEvents = function(day, element) {
   if(day.month() === this.current.month()) {
     var todaysEvents = this.events.reduce(function(memo, ev) {
-      if(ev.date.isSame(day,"day")) {
+      if (ev.date.isSame(day,"day") || (ev.allday && day.isBetween(ev.date,ev.dateend,"day","[]"))) {
         memo.push(ev);
       }
       return memo;
@@ -224,7 +224,7 @@ Calendar.prototype.openDay = function(el) {
       el.parentNode.appendChild(details);
     }
     var todaysEvents = this.events.reduce(function(memo, ev) {
-      if(ev.date.isSame(day, "day")) {
+      if (ev.date.isSame(day, "day") || (ev.allday && day.isBetween(ev.date,ev.dateend,"day","[]"))) {
         memo.push(ev);
       }
       return memo;
@@ -297,9 +297,10 @@ Calendar.prototype.prevMonth = function() {
     
     // label all day events
     var alldaytext = "(All day)";
-    $(".view-calevents .time .date-display-single").each(function(){
-      if ($(this).text() == alldaytext) {
-        $(this).parent().addClass("allday").parent().addClass("allday");
+    $(".view-calevents .time").each(function(){
+      console.log($(this).text());
+      if ($(this).text().trim() == alldaytext) {
+        $(this).addClass("allday").parent().addClass("allday");
       }
     });
     
@@ -315,12 +316,14 @@ Calendar.prototype.prevMonth = function() {
     var x;
     for (x=0;x<events.length;x++) {
       var date = events.eq(x).find(".time").eq(0).attr("data-date-start");
+      var dateend = events.eq(x).find(".time").eq(0).attr("data-date-end");
       var title = events.eq(x).find("h4").eq(0).html();
       var time = (events.eq(x).find(".date-display-start").length > 0) ? events.eq(x).find(".date-display-start").eq(0).text() : events.eq(x).find(".date-display-single").eq(0).text();
       var html = events.eq(x).html();
       var allday = (events.eq(x).hasClass("allday")) ? true : false;
       eventdata[x] = {};
       eventdata[x].date = moment(date);
+      eventdata[x].dateend = moment(dateend);
       eventdata[x].title = title;
       eventdata[x].time = time;
       eventdata[x].html = html;
